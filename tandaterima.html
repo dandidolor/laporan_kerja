@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanda Terima Digital - Team Tax System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.css">
+    <style>
+        /* GitHub Pages Theme */
+        :root {
+            --primary: #2c7be5;
+            --secondary: #3aa38f;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --github: #24292e;
+            --border: #e1e5e9;
+            --shadow: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e7f0 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 20px;
+        }
+
+        /* GitHub Banner */
+        .github-banner {
+            background: linear-gradient(135deg, var(--github) 0%, #3a3a3a 100%);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 14px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .github-banner a {
+            color: #58a6ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .github-banner a:hover {
+            text-decoration: underline;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 20px 0 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px var(--shadow);
+            border-left: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+
+        .github-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--github);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* Stats Overview */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px var(--shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            border-color: var(--primary);
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .stat-icon.blue {
+            background: linear-gradient(135deg, var(--primary) 0%, #1c6bd6 100%);
+        }
+
+        .stat-icon.green {
+            background: linear-gradient(135deg, var(--success) 0%, #1e7e34 100%);
+        }
+
+        .stat-icon.orange {
+            background: linear-gradient(135deg, var(--warning) 0%, #e0a800 100%);
+        }
+
+        .stat-icon.red {
+            background: linear-gradient(135deg, var(--danger) 0%, #c82333 100%);
+        }
+
+        .stat-info {
+            flex-grow: 1;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Form Section */
+        .form-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .form-section h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(44, 123, 229, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        /* QR Section */
+        .qr-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px var(--shadow);
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .qr-section h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qr-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 2px dashed var(--border);
+        }
+
+        .qr-placeholder {
+            color: #adb5bd;
+            text-align: center;
+        }
+
+        .qr-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .share-options {
+            margin-top: 25px;
+        }
+
+        .share-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        /* Recent Documents */
+        .recent-documents {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .recent-documents h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .document-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .doc-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .doc-info {
+            flex-grow: 1;
+        }
+
+        .doc-info strong {
+            display: block;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .doc-info small {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .doc-amount {
+            font-weight: 600;
+            color: var(--success);
+            flex-shrink: 0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #adb5bd;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 123, 229, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #20c997 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning) 0%, #ff9800 100%);
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #fd7e14 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-outline {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Receipt Preview */
+        .receipt-preview {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid var(--primary);
+            display: none;
+        }
+
+        .receipt-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .receipt-header h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .receipt-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 10px;
+        }
+
+        .receipt-body {
+            margin-bottom: 30px;
+        }
+
+        .receipt-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-row .label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .info-row .value {
+            color: #333;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .info-row .value.amount {
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .signature-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px dashed var(--border);
+        }
+
+        .signature-line {
+            width: 300px;
+            height: 1px;
+            background: #333;
+            margin: 30px auto 10px;
+        }
+
+        .signature-label {
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .receipt-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .verification {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #e8f4ff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            color: #6c757d;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-brand h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-badge {
+            background: #e9ecef;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .github-link {
+            margin-top: 10px;
+        }
+
+        .github-link a {
+            color: var(--github);
+            text-decoration: none;
+        }
+
+        .github-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* GitHub Pages Badge */
+        .github-pages-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        /* Alerts */
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+
+        .alert-success {
+            border-left-color: var(--success);
+        }
+
+        .alert-error {
+            border-left-color: var(--danger);
+        }
+
+        .alert-warning {
+            border-left-color: var(--warning);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 25px 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .stats-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-section, .qr-section, .recent-documents {
+                padding: 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .share-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .receipt-preview {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-overview {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* QR Code Styling */
+        #qrCodeContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+        }
+
+        #qrCodeContainer canvas {
+            border: 10px solid white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- GitHub Banner -->
+    <div class="github-banner">
+        <i class="fab fa-github"></i> 
+        Hosted on GitHub Pages • 
+        <a href="https://github.com/username/tanda-terima-digital" target="_blank">
+            View Source Code
+        </a>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <i class="fas fa-file-signature"></i>
+                Tanda Terima Digital
+            </h1>
+            <p>Sistem tanda terima online untuk verifikasi dan persetujuan dokumen secara digital</p>
+            <div class="github-badge">
+                <i class="fab fa-github"></i>
+                GitHub Pages Ready
+            </div>
+        </div>
+        
+        <!-- Stats Overview -->
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalDocuments">0</div>
+                    <div class="stat-label">Total Dokumen</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="approvedDocuments">0</div>
+                    <div class="stat-label">Disetujui</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="pendingDocuments">0</div>
+                    <div class="stat-label">Menunggu</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon red">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="rejectedDocuments">0</div>
+                    <div class="stat-label">Ditolak</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Form Section -->
+            <div class="form-section">
+                <h2><i class="fas fa-edit"></i> Buat Tanda Terima Baru</h2>
+                
+                <form id="receiptForm">
+                    <div class="form-group">
+                        <label for="documentTitle">
+                            <i class="fas fa-heading"></i> Judul Dokumen
+                        </label>
+                        <input type="text" id="documentTitle" class="form-control" 
+                               placeholder="Contoh: Invoice Pembayaran Januari 2025" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="documentNumber">
+                            <i class="fas fa-hashtag"></i> Nomor Dokumen
+                        </label>
+                        <input type="text" id="documentNumber" class="form-control" 
+                               placeholder="Contoh: INV-2025-001" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="senderName">
+                            <i class="fas fa-user"></i> Pengirim
+                        </label>
+                        <input type="text" id="senderName" class="form-control" 
+                               placeholder="Nama pengirim" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="receiverName">
+                            <i class="fas fa-user-tie"></i> Penerima
+                        </label>
+                        <input type="text" id="receiverName" class="form-control" 
+                               placeholder="Nama penerima" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="receiverEmail">
+                            <i class="fas fa-envelope"></i> Email Penerima
+                        </label>
+                        <input type="email" id="receiverEmail" class="form-control" 
+                               placeholder="email@contoh.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="documentDate">
+                            <i class="fas fa-calendar-alt"></i> Tanggal Dokumen
+                        </label>
+                        <input type="date" id="documentDate" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="amount">
+                            <i class="fas fa-money-bill-wave"></i> Jumlah/Nilai
+                        </label>
+                        <input type="text" id="amount" class="form-control" 
+                               placeholder="Contoh: Rp 5.000.000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">
+                            <i class="fas fa-align-left"></i> Keterangan
+                        </label>
+                        <textarea id="description" class="form-control" 
+                                  placeholder="Deskripsi lengkap dokumen..." 
+                                  rows="4"></textarea>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-primary" id="generateBtn">
+                            <i class="fas fa-qrcode"></i> Generate QR Code
+                        </button>
+                        <button type="button" class="btn btn-success" id="sendEmailBtn">
+                            <i class="fas fa-paper-plane"></i> Kirim via Email
+                        </button>
+                        <button type="button" class="btn btn-warning" id="whatsappBtn">
+                            <i class="fab fa-whatsapp"></i> Share via WhatsApp
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Reset Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- QR Code Section -->
+                <div class="qr-section">
+                    <h3><i class="fas fa-qrcode"></i> QR Code Dokumen</h3>
+                    <div class="qr-container" id="qrContainer">
+                        <div class="qr-placeholder" id="qrPlaceholder">
+                            <i class="fas fa-qrcode"></i>
+                            <p>QR Code akan muncul setelah form diisi</p>
+                        </div>
+                        <div id="qrCodeContainer"></div>
+                    </div>
+                    
+                    <div class="share-options">
+                        <h4><i class="fas fa-share-alt"></i> Bagikan Dokumen</h4>
+                        <div class="share-buttons">
+                            <button class="btn btn-outline" id="copyLinkBtn">
+                                <i class="fas fa-copy"></i> Copy Link
+                            </button>
+                            <button class="btn btn-outline" id="downloadQRBtn">
+                                <i class="fas fa-download"></i> Download QR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Documents -->
+                <div class="recent-documents">
+                    <h3><i class="fas fa-history"></i> Dokumen Terbaru</h3>
+                    <div id="documentsList">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>Belum ada dokumen</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Receipt Preview -->
+        <div class="receipt-preview" id="receiptPreview">
+            <div class="receipt-header">
+                <h2>TANDA TERIMA DIGITAL</h2>
+                <div class="receipt-meta">
+                    <span id="previewDocNumber">TT-2025-001</span>
+                    <span id="previewDate">1 Januari 2025</span>
+                </div>
+            </div>
+            
+            <div class="receipt-body">
+                <div class="receipt-info">
+                    <div class="info-row">
+                        <span class="label">Pengirim:</span>
+                        <span class="value" id="previewSender">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Penerima:</span>
+                        <span class="value" id="previewReceiver">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Jumlah:</span>
+                        <span class="value amount" id="previewAmount">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Keterangan:</span>
+                        <span class="value" id="previewDescription">-</span>
+                    </div>
+                </div>
+                
+                <div class="signature-section">
+                    <div class="signature-line"></div>
+                    <p class="signature-label">Tanda Tangan Digital Penerima</p>
+                </div>
+            </div>
+            
+            <div class="receipt-footer">
+                <div class="verification">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Diverifikasi secara digital • 
+                    <a href="#" id="verifyLink">Verifikasi dokumen ini</a></span>
+                </div>
+            </div>
+            
+            <div class="action-buttons" style="margin-top: 30px;">
+                <button type="button" class="btn btn-primary" id="printReceiptBtn">
+                    <i class="fas fa-print"></i> Print Tanda Terima
+                </button>
+                <button type="button" class="btn btn-success" id="approveBtn">
+                    <i class="fas fa-check"></i> Setujui Dokumen
+                </button>
+                <button type="button" class="btn btn-danger" id="rejectBtn">
+                    <i class="fas fa-times"></i> Tolak Dokumen
+                </button>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3><i class="fas fa-file-contract"></i> Team Tax Digital</h3>
+                    <p>Sistem tanda terima digital yang aman dan terverifikasi. Hosted on GitHub Pages.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#features"><i class="fas fa-star"></i> Fitur</a>
+                    <a href="#help"><i class="fas fa-question-circle"></i> Bantuan</a>
+                    <a href="#contact"><i class="fas fa-envelope"></i> Kontak</a>
+                    <a href="https://github.com/username/tanda-terima-digital" target="_blank">
+                        <i class="fab fa-github"></i> Source Code
+                    </a>
+                </div>
+                
+                <div class="footer-tech">
+                    <span class="tech-badge">GitHub Pages</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">LocalStorage</span>
+                    <span class="tech-badge">QR Code</span>
+                    <span class="tech-badge">WhatsApp API</span>
+                    <span class="tech-badge">Responsive</span>
+                </div>
+            </div>
+            
+            <div class="footer-copyright">
+                <p>© 2025 Team Tax Management System. Hosted on GitHub Pages.</p>
+                <p class="github-link">
+                    <i class="fab fa-github"></i> 
+                    <a href="https://github.com/username/tanda-terima-digital" target="_blank">
+                        github.com/username/tanda-terima-digital
+                    </a>
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- GitHub Pages Badge -->
+    <a href="https://pages.github.com" class="github-pages-badge" target="_blank" title="Hosted on GitHub Pages">
+        <img src="https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-blue?logo=github&style=for-the-badge" 
+             alt="Hosted on GitHub Pages">
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        // ==================== TANDA TERIMA DIGITAL SYSTEM ====================
+        // GitHub Pages Version - Full Implementation
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Tanda Terima Digital System Initialized');
+            console.log('📱 GitHub Pages Ready: https://pages.github.com');
+            
+            // Initialize App
+            initApp();
+            
+            // Set Default Date
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('documentDate').value = today;
+            
+            // Generate Initial Document Number
+            generateDocumentNumber();
+            
+            // Event Listeners
+            setupEventListeners();
+            
+            // Check for URL parameters (for verification)
+            checkUrlParameters();
+        });
+
+        // ==================== INITIALIZATION ====================
+        function initApp() {
+            console.log('📂 Loading documents from LocalStorage...');
+            loadDocuments();
+            updateStats();
+        }
+
+        function setupEventListeners() {
+            // Main Buttons
+            document.getElementById('generateBtn').addEventListener('click', generateQRCode);
+            document.getElementById('sendEmailBtn').addEventListener('click', sendEmail);
+            document.getElementById('whatsappBtn').addEventListener('click', shareViaWhatsApp);
+            document.getElementById('copyLinkBtn').addEventListener('click', copyShareableLink);
+            document.getElementById('downloadQRBtn').addEventListener('click', downloadQRCode);
+            document.getElementById('printReceiptBtn').addEventListener('click', printReceipt);
+            document.getElementById('approveBtn').addEventListener('click', approveDocument);
+            document.getElementById('rejectBtn').addEventListener('click', rejectDocument);
+            document.getElementById('verifyLink').addEventListener('click', verifyDocument);
+            
+            // Form Reset
+            document.getElementById('receiptForm').addEventListener('reset', function() {
+                document.getElementById('receiptPreview').style.display = 'none';
+                document.getElementById('qrPlaceholder').style.display = 'block';
+                document.getElementById('qrCodeContainer').innerHTML = '';
+                showAlert('Form telah direset!', 'success');
+            });
+        }
+
+        // ==================== DOCUMENT MANAGEMENT ====================
+        function generateDocumentNumber() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            
+            // Get document count from localStorage
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            const count = documents.length + 1;
+            
+            document.getElementById('documentNumber').value = 
+                `TT-${year}${month}${day}-${String(count).padStart(3, '0')}`;
+        }
+
+        function getFormData() {
+            return {
+                id: 'DOC_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                title: document.getElementById('documentTitle').value.trim(),
+                documentNumber: document.getElementById('documentNumber').value.trim(),
+                sender: document.getElementById('senderName').value.trim(),
+                receiver: document.getElementById('receiverName').value.trim(),
+                receiverEmail: document.getElementById('receiverEmail').value.trim(),
+                date: document.getElementById('documentDate').value,
+                amount: document.getElementById('amount').value.trim(),
+                description: document.getElementById('description').value.trim(),
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                approvedAt: null,
+                rejectedAt: null,
+                qrGenerated: false
+            };
+        }
+
+        function validateForm() {
+            const requiredFields = [
+                'documentTitle', 'documentNumber', 'senderName', 
+                'receiverName', 'receiverEmail', 'amount'
+            ];
+            
+            for (const fieldId of requiredFields) {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    showAlert(`Harap isi "${field.previousElementSibling.textContent}"`, 'error');
+                    field.focus();
+                    return false;
+                }
+            }
+            
+            // Validate email format
+            const email = document.getElementById('receiverEmail').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showAlert('Format email tidak valid!', 'error');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // ==================== QR CODE GENERATION ====================
+        function generateQRCode() {
+            if (!validateForm()) return;
+            
+            const formData = getFormData();
+            const verificationUrl = `${window.location.origin}${window.location.pathname}?verify=${formData.id}`;
+            
+            // QR Code Data
+            const qrData = JSON.stringify({
+                type: 'digital_receipt',
+                id: formData.id,
+                title: formData.title,
+                number: formData.documentNumber,
+                sender: formData.sender,
+                receiver: formData.receiver,
+                amount: formData.amount,
+                date: formData.date,
+                verification_url: verificationUrl,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Clear previous QR Code
+            document.getElementById('qrCodeContainer').innerHTML = '';
+            document.getElementById('qrPlaceholder').style.display = 'none';
+            
+            // Generate new QR Code
+            try {
+                new QRCode(document.getElementById('qrCodeContainer'), {
+                    text: qrData,
+                    width: 200,
+                    height: 200,
+                    colorDark: "#2c7be5",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+                
+                // Save document
+                saveDocument(formData);
+                
+                // Update receipt preview
+                updateReceiptPreview(formData);
+                
+                // Show success
+                showAlert('✅ QR Code berhasil dibuat!', 'success');
+                
+                // Confetti celebration
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
+                
+            } catch (error) {
+                showAlert('❌ Gagal membuat QR Code: ' + error.message, 'error');
+            }
+        }
+
+        function updateReceiptPreview(data) {
+            // Format date
+            const formattedDate = new Date(data.date).toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Update preview elements
+            document.getElementById('previewDocNumber').textContent = data.documentNumber;
+            document.getElementById('previewDate').textContent = formattedDate;
+            document.getElementById('previewSender').textContent = data.sender;
+            document.getElementById('previewReceiver').textContent = data.receiver;
+            document.getElementById('previewAmount').textContent = data.amount;
+            document.getElementById('previewDescription').textContent = data.description || '-';
+            
+            // Show receipt preview
+            document.getElementById('receiptPreview').style.display = 'block';
+            
+            // Scroll to preview
+            setTimeout(() => {
+                document.getElementById('receiptPreview').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 300);
+        }
+
+        // ==================== SHARING & EXPORT ====================
+        function shareViaWhatsApp() {
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            if (documents.length === 0) {
+                showAlert('Buat dokumen terlebih dahulu!', 'error');
+                return;
+            }
+            
+            const latestDoc = documents[documents.length - 1];
+            const verificationUrl = `${window.location.origin}${window.location.pathname}?verify=${latestDoc.id}`;
+            
+            const message = `📋 *TANDA TERIMA DIGITAL*
+
+*Judul:* ${latestDoc.title}
+*Nomor:* ${latestDoc.documentNumber}
+*Pengirim:* ${latestDoc.sender}
+*Penerima:* ${latestDoc.receiver}
+*Jumlah:* ${latestDoc.amount}
+*Tanggal:* ${new Date(latestDoc.date).toLocaleDateString('id-ID')}
+
+🔗 *Verifikasi Dokumen:*
+${verificationUrl}
+
+📱 *Cara Verifikasi:*
+1. Klik link di atas
+2. Scan QR Code
+3. Berikan persetujuan
+
+_*Catatan:* Dokumen ini divalidasi secara digital_
+
+© Team Tax System`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+            showAlert('📱 Siap dibagikan via WhatsApp!', 'success');
+        }
+
+        function sendEmail() {
+            if (!validateForm()) return;
+            
+            const formData = getFormData();
+            const verificationUrl = `${window.location.origin}${window.location.pathname}?verify=${formData.id}`;
+            
+            const subject = `Tanda Terima Digital - ${formData.title}`;
+            const body = `Kepada ${formData.receiver},
+
+Anda menerima Tanda Terima Digital:
+
+JUDUL: ${formData.title}
+NOMOR: ${formData.documentNumber}
+PENGIRIM: ${formData.sender}
+PENERIMA: ${formData.receiver}
+JUMLAH: ${formData.amount}
+TANGGAL: ${new Date(formData.date).toLocaleDateString('id-ID')}
+KETERANGAN: ${formData.description || '-'}
+
+LINK VERIFIKASI: ${verificationUrl}
+
+Silakan klik link di atas untuk verifikasi dan persetujuan.
+
+Hormat kami,
+${formData.sender}
+
+---
+© Team Tax System
+Digital Receipt System`;
+            
+            const mailtoUrl = `mailto:${formData.receiverEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            window.location.href = mailtoUrl;
+        }
+
+        function copyShareableLink() {
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            if (documents.length === 0) {
+                showAlert('Buat dokumen terlebih dahulu!', 'error');
+                return;
+            }
+            
+            const latestDoc = documents[documents.length - 1];
+            const verificationUrl = `${window.location.origin}${window.location.pathname}?verify=${latestDoc.id}`;
+            
+            navigator.clipboard.writeText(verificationUrl)
+                .then(() => showAlert('✅ Link berhasil disalin ke clipboard!', 'success'))
+                .catch(() => showAlert('❌ Gagal menyalin link', 'error'));
+        }
+
+        function downloadQRCode() {
+            const canvas = document.querySelector('#qrCodeContainer canvas');
+            if (!canvas) {
+                showAlert('Buat QR Code terlebih dahulu!', 'error');
+                return;
+            }
+            
+            const link = document.createElement('a');
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            const latestDoc = documents[documents.length - 1];
+            
+            link.download = `QRCode-${latestDoc.documentNumber}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            showAlert('✅ QR Code berhasil diunduh!', 'success');
+        }
+
+        // ==================== DOCUMENT ACTIONS ====================
+        function approveDocument() {
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            if (documents.length === 0) return;
+            
+            const latestDoc = documents[documents.length - 1];
+            latestDoc.status = 'approved';
+            latestDoc.approvedAt = new Date().toISOString();
+            
+            localStorage.setItem('teamTaxDocuments', JSON.stringify(documents));
+            updateStats();
+            
+            showAlert('✅ Dokumen berhasil disetujui!', 'success');
+            
+            // Update UI
+            const signatureSection = document.querySelector('.signature-section');
+            signatureSection.innerHTML = `
+                <div style="color: #28a745; text-align: center;">
+                    <i class="fas fa-check-circle" style="font-size: 3rem;"></i>
+                    <h3 style="margin: 10px 0 5px;">DISETUJUI</h3>
+                    <p style="margin: 0; color: #666;">
+                        ${new Date().toLocaleDateString('id-ID', { 
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}
+                    </p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">
+                        Oleh: ${latestDoc.receiver}
+                    </p>
+                </div>
+            `;
+        }
+
+        function rejectDocument() {
+            const reason = prompt('Masukkan alasan penolakan:');
+            if (!reason) return;
+            
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            if (documents.length === 0) return;
+            
+            const latestDoc = documents[documents.length - 1];
+            latestDoc.status = 'rejected';
+            latestDoc.rejectedAt = new Date().toISOString();
+            latestDoc.rejectionReason = reason;
+            
+            localStorage.setItem('teamTaxDocuments', JSON.stringify(documents));
+            updateStats();
+            
+            showAlert('❌ Dokumen telah ditolak', 'warning');
+            
+            // Update UI
+            const signatureSection = document.querySelector('.signature-section');
+            signatureSection.innerHTML = `
+                <div style="color: #dc3545; text-align: center;">
+                    <i class="fas fa-times-circle" style="font-size: 3rem;"></i>
+                    <h3 style="margin: 10px 0 5px;">DITOLAK</h3>
+                    <p style="margin: 0; color: #666;">
+                        Alasan: ${reason}
+                    </p>
+                    <p style="margin: 5px 0; color: #666;">
+                        ${new Date().toLocaleDateString('id-ID', { 
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}
+                    </p>
+                </div>
+            `;
+        }
+
+        function verifyDocument() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const docId = urlParams.get('verify');
+            
+            if (docId) {
+                const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+                const doc = documents.find(d => d.id === docId);
+                
+                if (doc) {
+                    const status = doc.status || 'pending';
+                    const statusColors = {
+                        'pending': '#ffc107',
+                        'approved': '#28a745',
+                        'rejected': '#dc3545'
+                    };
+                    
+                    const statusText = {
+                        'pending': 'MENUNGGU',
+                        'approved': 'DISETUJUI',
+                        'rejected': 'DITOLAK'
+                    };
+                    
+                    alert(`🔍 VERIFIKASI DOKUMEN
+
+📄 Judul: ${doc.title}
+🔢 Nomor: ${doc.documentNumber}
+👤 Pengirim: ${doc.sender}
+👥 Penerima: ${doc.receiver}
+💰 Jumlah: ${doc.amount}
+📅 Tanggal: ${new Date(doc.date).toLocaleDateString('id-ID')}
+📊 Status: ${statusText[status]}
+
+${doc.status === 'rejected' ? `❌ Alasan: ${doc.rejectionReason}` : ''}
+${doc.approvedAt ? `✅ Disetujui pada: ${new Date(doc.approvedAt).toLocaleDateString('id-ID')}` : ''}
+
+Dokumen ini valid dan terverifikasi secara digital.`);
+                } else {
+                    showAlert('❌ Dokumen tidak ditemukan!', 'error');
+                }
+            } else {
+                const input = prompt('Masukkan ID Dokumen untuk verifikasi:');
+                if (input) {
+                    window.location.search = `?verify=${input}`;
+                }
+            }
+        }
+
+        // ==================== STORAGE MANAGEMENT ====================
+        function saveDocument(doc) {
+            let documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            documents.push(doc);
+            localStorage.setItem('teamTaxDocuments', JSON.stringify(documents));
+            
+            updateDocumentsList();
+            updateStats();
+        }
+
+        function loadDocuments() {
+            updateDocumentsList();
+        }
+
+        function updateDocumentsList() {
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            const container = document.getElementById('documentsList');
+            
+            if (documents.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>Belum ada dokumen</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Show latest 5 documents
+            const recentDocs = documents.slice(-5).reverse();
+            container.innerHTML = recentDocs.map(doc => `
+                <div class="document-item" onclick="viewDocument('${doc.id}')" style="cursor: pointer;">
+                    <div class="doc-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="doc-info">
+                        <strong>${doc.title}</strong>
+                        <small>${doc.documentNumber} • ${new Date(doc.date).toLocaleDateString('id-ID')}</small>
+                    </div>
+                    <div class="doc-amount">
+                        ${doc.amount}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewDocument(docId) {
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            const doc = documents.find(d => d.id === docId);
+            
+            if (doc) {
+                // Fill form with document data
+                document.getElementById('documentTitle').value = doc.title;
+                document.getElementById('documentNumber').value = doc.documentNumber;
+                document.getElementById('senderName').value = doc.sender;
+                document.getElementById('receiverName').value = doc.receiver;
+                document.getElementById('receiverEmail').value = doc.receiverEmail;
+                document.getElementById('documentDate').value = doc.date;
+                document.getElementById('amount').value = doc.amount;
+                document.getElementById('description').value = doc.description;
+                
+                // Update preview
+                updateReceiptPreview(doc);
+                
+                showAlert('📄 Dokumen dimuat!', 'success');
+            }
+        }
+
+        function updateStats() {
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            
+            const total = documents.length;
+            const approved = documents.filter(d => d.status === 'approved').length;
+            const pending = documents.filter(d => !d.status || d.status === 'pending').length;
+            const rejected = documents.filter(d => d.status === 'rejected').length;
+            
+            document.getElementById('totalDocuments').textContent = total;
+            document.getElementById('approvedDocuments').textContent = approved;
+            document.getElementById('pendingDocuments').textContent = pending;
+            document.getElementById('rejectedDocuments').textContent = rejected;
+        }
+
+        // ==================== PRINT FUNCTION ====================
+        function printReceipt() {
+            const printWindow = window.open('', '_blank');
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            
+            if (documents.length === 0) {
+                showAlert('Tidak ada dokumen untuk dicetak!', 'error');
+                return;
+            }
+            
+            const latestDoc = documents[documents.length - 1];
+            
+            const printContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Tanda Terima - ${latestDoc.documentNumber}</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            margin: 40px; 
+                            color: #333;
+                        }
+                        .print-header {
+                            text-align: center;
+                            margin-bottom: 30px;
+                            border-bottom: 3px solid #2c7be5;
+                            padding-bottom: 20px;
+                        }
+                        .print-header h1 {
+                            color: #2c7be5;
+                            margin: 0 0 10px 0;
+                        }
+                        .print-info {
+                            background: #f8f9fa;
+                            padding: 25px;
+                            border-radius: 10px;
+                            margin: 25px 0;
+                        }
+                        .info-row {
+                            display: flex;
+                            justify-content: space-between;
+                            padding: 8px 0;
+                            border-bottom: 1px solid #ddd;
+                        }
+                        .info-row:last-child { border-bottom: none; }
+                        .label { font-weight: bold; color: #495057; }
+                        .value { color: #2c7be5; }
+                        .amount { color: #28a745; font-weight: bold; font-size: 1.1em; }
+                        .signature-area {
+                            margin-top: 60px;
+                            text-align: center;
+                        }
+                        .signature-line {
+                            width: 300px;
+                            height: 1px;
+                            background: #333;
+                            margin: 40px auto 10px;
+                        }
+                        .footer {
+                            text-align: center;
+                            margin-top: 50px;
+                            font-size: 0.9em;
+                            color: #666;
+                            border-top: 1px solid #ddd;
+                            padding-top: 20px;
+                        }
+                        @media print {
+                            .no-print { display: none; }
+                            body { margin: 20px; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="print-header">
+                        <h1>TANDA TERIMA DIGITAL</h1>
+                        <p>Team Tax Management System</p>
+                        <p style="color: #666;">
+                            ${latestDoc.documentNumber} • 
+                            ${new Date(latestDoc.date).toLocaleDateString('id-ID')}
+                        </p>
+                    </div>
+                    
+                    <div class="print-info">
+                        <div class="info-row">
+                            <span class="label">Judul Dokumen:</span>
+                            <span class="value">${latestDoc.title}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Pengirim:</span>
+                            <span class="value">${latestDoc.sender}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Penerima:</span>
+                            <span class="value">${latestDoc.receiver}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Jumlah:</span>
+                            <span class="value amount">${latestDoc.amount}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Keterangan:</span>
+                            <span class="value">${latestDoc.description || '-'}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="signature-area">
+                        <div class="signature-line"></div>
+                        <p>Tanda Tangan Penerima</p>
+                    </div>
+                    
+                    <div class="footer">
+                        <p>Dokumen ini divalidasi secara digital</p>
+                        <p>Verifikasi: ${window.location.origin}${window.location.pathname}?verify=${latestDoc.id}</p>
+                        <p>© ${new Date().getFullYear()} Team Tax System • Dicetak: ${new Date().toLocaleDateString('id-ID')}</p>
+                    </div>
+                    
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                            setTimeout(() => window.close(), 500);
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+        }
+
+        // ==================== URL PARAMETER HANDLING ====================
+        function checkUrlParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const verifyId = urlParams.get('verify');
+            
+            if (verifyId) {
+                const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+                const doc = documents.find(d => d.id === verifyId);
+                
+                if (doc) {
+                    // Auto-fill form with document data
+                    document.getElementById('documentTitle').value = doc.title;
+                    document.getElementById('documentNumber').value = doc.documentNumber;
+                    document.getElementById('senderName').value = doc.sender;
+                    document.getElementById('receiverName').value = doc.receiver;
+                    document.getElementById('receiverEmail').value = doc.receiverEmail;
+                    document.getElementById('documentDate').value = doc.date;
+                    document.getElementById('amount').value = doc.amount;
+                    document.getElementById('description').value = doc.description;
+                    
+                    // Update preview
+                    updateReceiptPreview(doc);
+                    
+                    showAlert(`📄 Dokumen "${doc.title}" dimuat untuk verifikasi!`, 'success');
+                }
+            }
+        }
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function showAlert(message, type = 'success') {
+            // Remove existing alerts
+            const existingAlerts = document.querySelectorAll('.alert');
+            existingAlerts.forEach(alert => alert.remove());
+            
+            // Create new alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 
+                                  type === 'error' ? 'exclamation-circle' : 
+                                  type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+
+        // ==================== EXPORT FUNCTIONS ====================
+        window.exportData = function() {
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            if (documents.length === 0) {
+                showAlert('Tidak ada data untuk diexport!', 'error');
+                return;
+            }
+            
+            const csvContent = "data:text/csv;charset=utf-8," 
+                + "ID,Judul,Nomor,Pengirim,Penerima,Jumlah,Tanggal,Status\n"
+                + documents.map(doc => 
+                    `"${doc.id}","${doc.title}","${doc.documentNumber}","${doc.sender}","${doc.receiver}","${doc.amount}","${doc.date}","${doc.status || 'pending'}"`
+                ).join("\n");
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `tanda-terima-${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showAlert('✅ Data berhasil diexport ke CSV!', 'success');
+        };
+
+        window.clearData = function() {
+            if (confirm('Apakah Anda yakin ingin menghapus semua data?')) {
+                localStorage.removeItem('teamTaxDocuments');
+                initApp();
+                showAlert('🗑️ Semua data telah dihapus!', 'warning');
+            }
+        };
+
+        // ==================== GITHUB PAGES BADGE ====================
+        console.log(`
+        ==========================================
+        🚀 TANDA TERIMA DIGITAL SYSTEM
+        ==========================================
+        📱 GitHub Pages Ready
+        🔗 URL: https://[username].github.io/tanda-terima-digital/
+        💾 Storage: LocalStorage
+        📊 Documents: ${JSON.parse(localStorage.getItem('teamTaxDocuments'))?.length || 0}
+        ==========================================
+        `);
+    </script>
+</body>
+</html>
