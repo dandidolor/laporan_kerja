@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMINISTRASI TEAM TAX - Login</title>
+    <style>
+        /* LANGIT MALAM GALAXY DENGAN AURORA */
+        body {
+            background-color: #0a0a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background langit malam dengan bintang */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(63, 94, 251, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(252, 70, 107, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 50%, rgba(131, 58, 180, 0.1) 0%, transparent 50%),
+                linear-gradient(to bottom, #000428 0%, #0a0a1a 50%, #1a1a2e 100%);
+        }
+
+        /* Bintang-bintang */
+        .star {
+            position: fixed;
+            background-color: white;
+            border-radius: 50%;
+            z-index: -2;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        .star-1 { width: 1px; height: 1px; top: 15%; left: 20%; --duration: 3s; }
+        .star-2 { width: 2px; height: 2px; top: 30%; left: 40%; --duration: 4s; }
+        .star-3 { width: 1px; height: 1px; top: 20%; left: 60%; --duration: 2.5s; }
+        .star-4 { width: 3px; height: 3px; top: 40%; left: 30%; --duration: 5s; }
+        .star-5 { width: 1px; height: 1px; top: 25%; left: 80%; --duration: 3.5s; }
+        .star-6 { width: 2px; height: 2px; top: 35%; left: 10%; --duration: 4.5s; }
+        .star-7 { width: 1px; height: 1px; top: 50%; left: 50%; --duration: 3s; }
+        .star-8 { width: 2px; height: 2px; top: 45%; left: 70%; --duration: 4s; }
+        .star-9 { width: 1px; height: 1px; top: 55%; left: 90%; --duration: 2.5s; }
+        .star-10 { width: 3px; height: 3px; top: 60%; left: 25%; --duration: 6s; }
+
+        /* Aurora Borealis (Cahaya Utara) */
+        .aurora {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            z-index: -2;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .aurora-1 {
+            background: linear-gradient(
+                90deg,
+                rgba(0, 255, 157, 0.1) 0%,
+                rgba(0, 183, 255, 0.15) 20%,
+                rgba(157, 0, 255, 0.1) 40%,
+                rgba(255, 0, 128, 0.05) 60%,
+                rgba(255, 234, 0, 0.1) 80%,
+                rgba(0, 255, 157, 0.1) 100%
+            );
+            filter: blur(30px);
+            animation: auroraWave 20s ease-in-out infinite;
+        }
+
+        .aurora-2 {
+            background: linear-gradient(
+                90deg,
+                rgba(157, 0, 255, 0.1) 0%,
+                rgba(0, 255, 255, 0.15) 25%,
+                rgba(255, 0, 128, 0.1) 50%,
+                rgba(0, 255, 157, 0.05) 75%,
+                rgba(157, 0, 255, 0.1) 100%
+            );
+            filter: blur(40px);
+            animation: auroraWave 25s ease-in-out infinite reverse;
+            margin-top: 50px;
+        }
+
+        /* Bintang jatuh (Meteor) */
+        .shooting-star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.8);
+            z-index: -1;
+            opacity: 0;
+        }
+
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, white, transparent);
+            transform: rotate(-45deg);
+            transform-origin: left;
+        }
+
+        .shooting-star-1 {
+            top: 10%;
+            left: -100px;
+            animation: shootingStar 4s ease-in infinite;
+        }
+
+        .shooting-star-2 {
+            top: 25%;
+            left: -150px;
+            animation: shootingStar 5s ease-in infinite 7s;
+        }
+
+        .shooting-star-3 {
+            top: 15%;
+            left: -200px;
+            animation: shootingStar 6s ease-in infinite 15s;
+        }
+
+        /* Bintang besar (Planet/Constelasi) */
+        .constellation {
+            position: fixed;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            z-index: -2;
+            animation: constelPulse 8s ease-in-out infinite;
+        }
+		
+
+        .constellation-1 {
+            width: 100px;
+            height: 100px;
+            top: 15%;
+            right: 10%;
+            filter: blur(10px);
+            opacity: 0.3;
+            animation-delay: 0s;
+            background: radial-gradient(circle, rgba(100, 149, 237, 0.6) 0%, rgba(100, 149, 237, 0) 70%);
+        }
+
+        .constellation-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            left: 5%;
+            filter: blur(15px);
+            opacity: 0.2;
+            animation-delay: 2s;
+            background: radial-gradient(circle, rgba(147, 112, 219, 0.5) 0%, rgba(147, 112, 219, 0) 70%);
+        }
+
+        /* ANIMASI KEYFRAMES */
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes auroraWave {
+            0%, 100% {
+                transform: translateX(0) skewX(0deg);
+                opacity: 0.3;
+            }
+            25% {
+                transform: translateX(50px) skewX(5deg);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateX(100px) skewX(-5deg);
+                opacity: 0.4;
+            }
+            75% {
+                transform: translateX(50px) skewX(3deg);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes shootingStar {
+            0% {
+                opacity: 0;
+                transform: translateX(0) translateY(0) rotate(-45deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(100vw) translateY(100vh) rotate(-45deg);
+            }
+        }
+
+        @keyframes constelPulse {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(1.05);
+            }
+        }
+		
+		/* ====== 13 FOTO TERBANG MELAYANG ====== */
+.flying-photo {
+    position: fixed;
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: -1;
+    box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.4),
+        0 0 30px rgba(100, 200, 255, 0.3),
+        0 0 50px rgba(100, 100, 255, 0.2);
+    opacity: 0.7;
+    filter: brightness(1.1) contrast(1.1) saturate(1.1);
+    cursor: pointer;
+    transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+}
+
+.flying-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+/* 13 Foto dengan ukuran dan animasi berbeda */
+.flying-photo-1 { width: 85px; height: 85px; animation: floatPhoto1 28s linear infinite; }
+.flying-photo-2 { width: 85px; height: 85px; animation: floatPhoto2 32s linear infinite; }
+.flying-photo-3 { width: 75px; height: 75px; animation: floatPhoto3 36s linear infinite; }
+.flying-photo-4 { width: 95px; height: 95px; animation: floatPhoto4 28s linear infinite; }
+.flying-photo-5 { width: 85px; height: 85px; animation: floatPhoto5 24s linear infinite; }
+.flying-photo-6 { width: 80px; height: 80px; animation: floatPhoto6 34s linear infinite; }
+.flying-photo-7 { width: 80px; height: 80px; animation: floatPhoto7 30s linear infinite; }
+.flying-photo-8 { width: 90px; height: 90px; animation: floatPhoto8 38s linear infinite; }
+.flying-photo-9 { width: 85px; height: 85px; animation: floatPhoto9 26s linear infinite; }
+.flying-photo-10 { width: 100px; height: 100px; animation: floatPhoto10 42s linear infinite; }
+.flying-photo-11 { width: 85px; height: 85px; animation: floatPhoto11 38s linear infinite; }
+.flying-photo-12 { width: 85px; height: 85px; animation: floatPhoto12 35s linear infinite; }
+.flying-photo-13 { width: 75px; height: 75px; animation: floatPhoto13 33s linear infinite; }
+
+/* Animasi untuk 13 foto (setiap foto punya jalur berbeda) */
+@keyframes floatPhoto1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    20% { transform: translate(40vw, -25vh) rotate(72deg) scale(1.1); }
+    40% { transform: translate(-30vw, 35vh) rotate(144deg) scale(0.9); }
+    60% { transform: translate(50vw, 15vh) rotate(216deg) scale(1.05); }
+    80% { transform: translate(-20vw, -40vh) rotate(288deg) scale(0.95); }
+}
+
+@keyframes floatPhoto2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-45vw, 30vh) rotate(-90deg); }
+    50% { transform: translate(35vw, -35vh) rotate(-180deg); }
+    75% { transform: translate(-25vw, 45vh) rotate(-270deg); }
+}
+
+@keyframes floatPhoto3 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    16.6% { transform: translate(55vw, 10vh) rotate(60deg) scale(1.15); }
+    33.3% { transform: translate(-35vw, -25vh) rotate(120deg) scale(0.85); }
+    50% { transform: translate(20vw, 50vh) rotate(180deg) scale(1.1); }
+    66.6% { transform: translate(-50vw, 15vh) rotate(240deg) scale(0.9); }
+    83.3% { transform: translate(30vw, -40vh) rotate(300deg) scale(1.05); }
+}
+
+@keyframes floatPhoto4 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.6; }
+    33% { transform: translate(-60vw, -20vh) rotate(-120deg); opacity: 0.8; }
+    66% { transform: translate(40vw, 40vh) rotate(-240deg); opacity: 0.5; }
+}
+
+@keyframes floatPhoto5 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    12.5% { transform: translate(65vw, -35vh) rotate(45deg); }
+    25% { transform: translate(-40vw, 25vh) rotate(90deg); }
+    37.5% { transform: translate(30vw, 55vh) rotate(135deg); }
+    50% { transform: translate(-55vw, -15vh) rotate(180deg); }
+    62.5% { transform: translate(45vw, -45vh) rotate(225deg); }
+    75% { transform: translate(-35vw, 35vh) rotate(270deg); }
+    87.5% { transform: translate(60vw, 20vh) rotate(315deg); }
+}
+
+@keyframes floatPhoto6 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    20% { transform: translate(-35vw, 40vh) rotate(72deg); }
+    40% { transform: translate(45vw, -30vh) rotate(144deg); }
+    60% { transform: translate(-25vw, -45vh) rotate(216deg); }
+    80% { transform: translate(55vw, 25vh) rotate(288deg); }
+}
+
+@keyframes floatPhoto7 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0.7; }
+    33% { transform: translate(60vw, 20vh) rotate(120deg) scale(1.2); opacity: 0.9; }
+    66% { transform: translate(-40vw, -30vh) rotate(240deg) scale(0.8); opacity: 0.6; }
+}
+
+@keyframes floatPhoto8 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-50vw, 15vh) rotate(-90deg); }
+    50% { transform: translate(30vw, 45vh) rotate(-180deg); }
+    75% { transform: translate(20vw, -40vh) rotate(-270deg); }
+}
+
+@keyframes floatPhoto9 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    14.28% { transform: translate(40vw, -50vh) rotate(51.4deg); }
+    28.57% { transform: translate(-60vw, 30vh) rotate(102.8deg); }
+    42.85% { transform: translate(35vw, 40vh) rotate(154.2deg); }
+    57.14% { transform: translate(-45vw, -35vh) rotate(205.7deg); }
+    71.42% { transform: translate(55vw, 20vh) rotate(257.1deg); }
+    85.71% { transform: translate(-30vw, 55vh) rotate(308.5deg); }
+}
+
+@keyframes floatPhoto10 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    10% { transform: translate(70vw, -25vh) rotate(36deg) scale(1.15); }
+    20% { transform: translate(-45vw, 40vh) rotate(72deg) scale(0.85); }
+    30% { transform: translate(55vw, 30vh) rotate(108deg) scale(1.1); }
+    40% { transform: translate(-35vw, -45vh) rotate(144deg) scale(0.9); }
+    50% { transform: translate(65vw, -15vh) rotate(180deg) scale(1.2); }
+    60% { transform: translate(-50vw, 35vh) rotate(216deg) scale(0.8); }
+    70% { transform: translate(40vw, 50vh) rotate(252deg) scale(1.05); }
+    80% { transform: translate(-60vw, -20vh) rotate(288deg) scale(0.95); }
+    90% { transform: translate(30vw, -40vh) rotate(324deg) scale(1.1); }
+}
+
+@keyframes floatPhoto11 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.8; }
+    50% { transform: translate(80vw, 50vh) rotate(180deg); opacity: 1; }
+}
+
+@keyframes floatPhoto12 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    16.6% { transform: translate(-55vw, 25vh) rotate(60deg); }
+    33.3% { transform: translate(40vw, -40vh) rotate(120deg); }
+    50% { transform: translate(-35vw, 45vh) rotate(180deg); }
+    66.6% { transform: translate(50vw, -25vh) rotate(240deg); }
+    83.3% { transform: translate(-40vw, 35vh) rotate(300deg); }
+}
+
+@keyframes floatPhoto13 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0.6; }
+    25% { transform: translate(45vw, -35vh) rotate(90deg) scale(1.1); opacity: 0.8; }
+    50% { transform: translate(-55vw, 40vh) rotate(180deg) scale(0.9); opacity: 0.5; }
+    75% { transform: translate(35vw, -45vh) rotate(270deg) scale(1.05); opacity: 0.7; }
+}
+
+/* Efek hover pada foto */
+.flying-photo:hover {
+    opacity: 1;
+    filter: brightness(1.4) contrast(1.3) saturate(1.5);
+    transform: scale(1.25);
+    z-index: 999;
+    box-shadow: 
+        0 0 25px rgba(255, 255, 255, 0.7),
+        0 0 50px rgba(100, 200, 255, 0.5),
+        0 0 80px rgba(100, 100, 255, 0.4),
+        0 0 120px rgba(255, 100, 200, 0.3);
+    animation-play-state: paused;
+}
+
+.flying-photo:hover img {
+    transform: scale(1.1);
+}
+
+/* Efek klik untuk pause/play */
+.flying-photo.paused {
+    animation-play-state: paused;
+    filter: brightness(1.3) saturate(1.8) hue-rotate(90deg);
+}
+
+/* Responsif untuk foto terbang */
+@media (max-width: 768px) {
+    .flying-photo {
+        width: 40px !important;
+        height: 40px !important;
+        opacity: 0.5;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    
+    .flying-photo:hover {
+        transform: scale(1.5);
+        opacity: 0.9;
+    }
+}
+
+        /* Responsif untuk animasi */
+        @media (max-width: 768px) {
+            .constellation-1, .constellation-2 {
+                transform: scale(0.7);
+            }
+            .shooting-star {
+                animation-duration: 3s;
+            }
+        }
+
+        /* ====== LOGIN FORM STYLING (Adjusted for night theme) ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #B0E0E6     ;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+		
+		.logo-container {
+		    text-align: center;
+			margin-bottom: 4px;
+		}
+		
+		.logo-image {
+		    max-width: 250px;
+			height: auto;
+			margin-bottom: -50px;
+		}
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #0056D2;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .greeting {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .instruction {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .login-form {
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #2c786c;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .checkbox-group input {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .checkbox-group label {
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            background-color: #2c786c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .login-button:hover {
+            background-color: #245e54;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+            font-size: 14px;
+            position: relative;
+        }
+		/* TAMBAHKAN KODE INI untuk menghilangkan garis */  
+.divider::before,
+.divider::after {
+    display: none;
+}
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background-color: #ddd;
+        }
+        
+        .divider::before {
+            left: 0;
+        }
+        
+        .divider::after {
+            right: 0;
+        }
+        
+        .google-button {
+            width: 100%;
+            padding: 12px;
+            background-color: white;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .google-button:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .forgot-password a {
+            color: #2c786c;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            background-color: #fde8e8;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+            font-size: 14px;
+        }
+        
+        ::placeholder {
+            color: #999;
+        }
+        
+        input[type="checkbox"]:checked {
+            accent-color: #2c786c;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 22px;
+            }
+        }
+		
+		/* Tambahan untuk gambar placeholder jika gambar tidak ditemukan */
+		.logo-image::after {
+		   content: "LOGO";
+		   display: block;
+		   color: #999;
+		   font-size 12px;
+		}
+    </style>
+</head>
+<body>
+<!-- ====== ELEMEN LANGIT MALAM GALAXY ====== -->
+<!-- Bintang-bintang berkelap-kelip -->
+<div class="star star-1"></div>
+<div class="star star-2"></div>
+<div class="star star-3"></div>
+<div class="star star-4"></div>
+<div class="star star-5"></div>
+<div class="star star-6"></div>
+<div class="star star-7"></div>
+<div class="star star-8"></div>
+<div class="star star-9"></div>
+<div class="star star-10"></div>
+
+<!-- Cahaya Aurora -->
+<div class="aurora aurora-1"></div>
+<div class="aurora aurora-2"></div>
+
+<!-- Bintang jatuh (Meteor) -->
+<div class="shooting-star shooting-star-1"></div>
+<div class="shooting-star shooting-star-2"></div>
+<div class="shooting-star shooting-star-3"></div>
+
+<!-- Bintang besar / Planet -->
+<div class="constellation constellation-1"></div>
+<div class="constellation constellation-2"></div>
+<!-- ====== 13 FOTO TERBANG MELAYANG ====== -->
+<div class="flying-photo flying-photo-1" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson1.png" alt="Dekkson 1" onerror="handlePhotoError(this, 1)">
+</div>
+
+<div class="flying-photo flying-photo-2" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson2.png" alt="Dekkson 2" onerror="handlePhotoError(this, 2)">
+</div>
+
+<div class="flying-photo flying-photo-3" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson3.png" alt="Dekkson 3" onerror="handlePhotoError(this, 3)">
+</div>
+
+<div class="flying-photo flying-photo-4" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson4.png" alt="Dekkson 4" onerror="handlePhotoError(this, 4)">
+</div>
+
+<div class="flying-photo flying-photo-5" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson5.png" alt="Dekkson 5" onerror="handlePhotoError(this, 5)">
+</div>
+
+<div class="flying-photo flying-photo-6" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson6.png" alt="Dekkson 6" onerror="handlePhotoError(this, 6)">
+</div>
+
+<div class="flying-photo flying-photo-7" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson7.png" alt="Dekkson 7" onerror="handlePhotoError(this, 7)">
+</div>
+
+<div class="flying-photo flying-photo-8" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson8.png" alt="Dekkson 8" onerror="handlePhotoError(this, 8)">
+</div>
+
+<div class="flying-photo flying-photo-9" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson9.png" alt="Dekkson 9" onerror="handlePhotoError(this, 9)">
+</div>
+
+<div class="flying-photo flying-photo-10" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson10.png" alt="Dekkson 10" onerror="handlePhotoError(this, 10)">
+</div>
+
+<div class="flying-photo flying-photo-11" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson11.png" alt="Dekkson 11" onerror="handlePhotoError(this, 11)">
+</div>
+
+<div class="flying-photo flying-photo-12" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson12.png" alt="Dekkson 12" onerror="handlePhotoError(this, 12)">
+</div>
+
+<div class="flying-photo flying-photo-13" title="Klik untuk pause/play">
+    <img src="images/wallpaper/dekkson13.png" alt="Dekkson 13" onerror="handlePhotoError(this, 13)">
+</div>
+
+    <div class="container">
+		<!-- Bagian logo/gambar di atas tulisan -->
+        <div class="logo-container">
+            <img src="images/dekkson.png" alt="Logo Administrasi Tim Tax" class="logo-image" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'width:80px; height:80px; background:#f0f2f5; border-radius:8px; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; color:#999; font-size:12px;\'>LOGO</div>'">
+        </div>
+		
+        <div class="header">
+            <h1>ADMINISTRASI TEAM TAX</h1>
+        </div>
+        
+        <p class="greeting">Assalamu'alaikum 欢迎光临
+Welcome Selamat Datang</p>
+        <p class="instruction">Silakan masuk untuk melanjutkan</p>
+        
+        <div class="error-message" id="errorMessage">
+            Nomor HP atau kata sandi salah, silahkan coba lagi.
+        </div>
+        
+        <div class="login-form">
+            <div class="form-group">
+                <input type="text" class="input-field" id="phoneNumber" placeholder="NIP / Email / No Hp">
+            </div>
+            
+            <div class="form-group">
+                <input type="password" class="input-field" id="password" placeholder="Kata Sandi">
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms" checked>
+                <label for="terms">Saya menerima Syarat dan Ketentuan serta Kebijakan Privasi</label>
+            </div>
+            
+            <button class="login-button" id="loginBtn">Masuk</button>
+            
+            <div class="divider">Atau lanjutkan dengan</div>
+            
+            <button class="google-button" id="googleBtn">Google</button>
+            
+            <div class="forgot-password">
+                <a href="#" id="forgotPassword">Lupa Password?</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data login yang valid - DITAMBAHKAN USER BARU
+        const VALID_USERS = [
+            {
+                phone: "082127898103",
+                password: "dandisaputra11",
+                username: "Dandi",
+                userCode: "D-1002202018",
+				userRole: "Tax Specialist"
+            },
+            {
+                phone: "087782717789",
+                password: "1407254070",
+                username: "Satrio",
+                userCode: "D-1407254070",
+				userRole: "Tax Administrator"
+            },
+			{
+                phone: "089657717515",
+                password: "dekkson123",
+                username: "Devina",
+                userCode: "D-1504130551",
+				userRole: "Head Of Tax Unit"
+            },
+			{
+                phone: "08159919177",
+                password: "dekkson123",
+                username: "Anton",
+                userCode: "D-1407254015",
+				userRole: "Tax Administrator"
+            },
+			{
+                phone: "087883986059",
+                password: "dekkson123",
+                username: "Aurigae",
+                userCode: "D-0504161152",
+				userRole: "Head Of Tax Department"
+            },
+			{
+                phone: "085754821452",
+                password: "dekkson123",
+                username: "Sahlan",
+                userCode: "D-0606171335",
+				userRole: "Tax Specialist"
+            },
+			{
+			
+                phone: "0895616360468",
+                password: "dekkson123",
+                username: "Dinda",
+                userCode: "D-0111212493",
+				userRole: "Tax Administrator"
+            },
+			{
+			
+                phone: "081519677001",
+                password: "dekkson123",
+                username: "Yeti",
+                userCode: "D-0108060105",
+				userRole: "Tax Compliance"
+            },
+			{
+			
+                phone: "0895602730678",
+                password: "dekkson123",
+                username: "Tyas",
+                userCode: "D-1902161135",
+				userRole: "Tax Compliance"
+            },
+			{
+			
+                phone: "085769638700",
+                password: "dekkson123",
+                username: "Rohai",
+                userCode: "D-1301253739",
+				userRole: "Tax Administrator"
+            }
+        ];
+        
+        // Element references
+        const phoneInput = document.getElementById('phoneNumber');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Fungsi untuk menampilkan error
+        function showError() {
+            errorMessage.style.display = 'block';
+            phoneInput.style.borderColor = '#e74c3c';
+            passwordInput.style.borderColor = '#e74c3c';
+            
+            // Reset border setelah 2 detik
+            setTimeout(() => {
+                phoneInput.style.borderColor = '#ddd';
+                passwordInput.style.borderColor = '#ddd';
+            }, 2000);
+        }
+        
+        // Fungsi untuk menyembunyikan error
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+        
+        // Validasi login
+        function validateLogin() {
+            const phone = phoneInput.value.trim();
+            const password = passwordInput.value.trim();
+			
+			// Cari user yang sesuai
+            const user = VALID_USERS.find(u => u.phone === phone && u.password === password);
+            
+            // Validasi input
+            if (!user) {
+                showError();
+                return false;
+            }
+            
+             // Jika login berhasil
+            hideError();
+            
+            // Simpan status login di localStorage
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('username', user.username);
+            localStorage.setItem('userCode', user.userCode);
+            localStorage.setItem('userPhone', user.phone);
+			localStorage.setItem('userRole', user.userRole);
+			
+			console.log('login berhasil! Role:', user.userRole);
+            
+            // Redirect ke dashboard
+            window.location.href = 'dashboard.html';
+            return true;
+        }
+        
+        // Event listener untuk tombol login
+        loginBtn.addEventListener('click', validateLogin);
+        
+        // Event listener untuk tombol Enter
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                validateLogin();
+            }
+        });
+        
+        // Event listener untuk tombol Google
+        document.getElementById('googleBtn').addEventListener('click', function() {
+            alert('Login dengan Google akan diimplementasikan kemudian.');
+        });
+        
+        // Event listener untuk lupa password
+        document.getElementById('forgotPassword').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Fitur lupa password akan diimplementasikan kemudian.');
+        });
+        
+        // Cek jika ada error di URL (untuk redirect dari dashboard)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('error') === '1') {
+            showError();
+        }
+    </script>
+
+    <!-- ====== SCRIPT UNTUK MENAMBAH BINTANG DINAMIS ====== -->
+    <script>
+        // Fungsi untuk membuat bintang-bintang secara acak
+        function createRandomStars() {
+            const starsContainer = document.createElement('div');
+            starsContainer.style.position = 'fixed';
+            starsContainer.style.top = '0';
+            starsContainer.style.left = '0';
+            starsContainer.style.width = '100%';
+            starsContainer.style.height = '100%';
+            starsContainer.style.pointerEvents = 'none';
+            starsContainer.style.zIndex = '-2';
+            
+            // Buat 50 bintang acak
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'dynamic-star';
+                star.style.position = 'absolute';
+                star.style.backgroundColor = 'white';
+                star.style.borderRadius = '50%';
+                
+                // Ukuran acak antara 1-3px
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Posisi acak
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Animasi kelap-kelip acak
+                const duration = Math.random() * 3 + 2;
+                const delay = Math.random() * 5;
+                star.style.animation = `twinkle ${duration}s ease-in-out ${delay}s infinite`;
+                
+                starsContainer.appendChild(star);
+            }
+            
+            document.body.appendChild(starsContainer);
+        }
+        
+        // Fungsi untuk membuat bintang jatuh acak
+        function createRandomShootingStars() {
+            const shootingStarsContainer = document.createElement('div');
+            shootingStarsContainer.style.position = 'fixed';
+            shootingStarsContainer.style.top = '0';
+            shootingStarsContainer.style.left = '0';
+            shootingStarsContainer.style.width = '100%';
+            shootingStarsContainer.style.height = '100%';
+            shootingStarsContainer.style.pointerEvents = 'none';
+            shootingStarsContainer.style.zIndex = '-1';
+            
+            // Buat 3-5 bintang jatuh acak
+            const count = Math.floor(Math.random() * 3) + 3;
+            
+            for (let i = 0; i < count; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'dynamic-shooting-star';
+                shootingStar.style.position = 'absolute';
+                shootingStar.style.backgroundColor = 'white';
+                shootingStar.style.borderRadius = '50%';
+                shootingStar.style.width = '2px';
+                shootingStar.style.height = '2px';
+                shootingStar.style.boxShadow = '0 0 10px 1px rgba(255, 255, 255, 0.8)';
+                
+                // Posisi awal acak di luar layar kiri
+                const startTop = Math.random() * 30 + 10; // 10-40%
+                shootingStar.style.top = `${startTop}%`;
+                shootingStar.style.left = '-50px';
+                
+                // Ekor bintang jatuh
+                const tail = document.createElement('div');
+                tail.style.position = 'absolute';
+                tail.style.top = '0';
+                tail.style.left = '0';
+                tail.style.width = '100px';
+                tail.style.height = '1px';
+                tail.style.background = 'linear-gradient(90deg, white, transparent)';
+                tail.style.transform = 'rotate(-45deg)';
+                tail.style.transformOrigin = 'left';
+                
+                shootingStar.appendChild(tail);
+                
+                // Animasi dengan durasi dan delay acak
+                const duration = Math.random() * 2 + 3; // 3-5 detik
+                const delay = Math.random() * 20; // delay 0-20 detik
+                
+                const keyframes = `
+                    @keyframes shoot${i} {
+                        0% {
+                            opacity: 0;
+                            transform: translateX(0) translateY(0) rotate(-45deg);
+                        }
+                        10% {
+                            opacity: 1;
+                        }
+                        90% {
+                            opacity: 0.8;
+                        }
+                        100% {
+                            opacity: 0;
+                            transform: translateX(calc(100vw + 100px)) translateY(100px) rotate(-45deg);
+                        }
+                    }
+                `;
+                
+                // Tambahkan keyframes ke style
+                const style = document.createElement('style');
+                style.textContent = keyframes;
+                document.head.appendChild(style);
+                
+                shootingStar.style.animation = `shoot${i} ${duration}s linear ${delay}s infinite`;
+                
+                shootingStarsContainer.appendChild(shootingStar);
+            }
+            
+            document.body.appendChild(shootingStarsContainer);
+        }
+        
+        // Jalankan fungsi saat halaman dimuat
+        window.addEventListener('load', function() {
+            createRandomStars();
+            setTimeout(createRandomShootingStars, 1000);
+        });
+        
+        // Tambahkan definisi animasi twinkle untuk bintang dinamis
+        const twinkleStyle = document.createElement('style');
+        twinkleStyle.textContent = `
+            @keyframes twinkle {
+                0%, 100% {
+                    opacity: 0.3;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1.2);
+                }
+            }
+        `;
+        document.head.appendChild(twinkleStyle);
+		
+		// Fungsi untuk handle error gambar - DISEMPURNAKAN
+function handlePhotoError(imgElement, photoNum) {
+    const parent = imgElement.parentElement;
+    
+    // OPTION 1: Sembunyikan elemen sepenuhnya
+    parent.style.display = 'none';
+    
+    // OPTION 2: Atau ubah menjadi transparan tanpa placeholder
+    // parent.style.opacity = '0';
+    // parent.style.pointerEvents = 'none';
+    
+    console.warn(`Gambar dekkson${photoNum}.png tidak ditemukan. Foto disembunyikan.`);
+}
+    
+    // Warna gradient acak
+    const colors = [
+        ['#ff7e5f', '#feb47b'], // Orange
+        ['#7f7fd5', '#86a8e7'], // Purple
+        ['#11998e', '#38ef7d'], // Green
+        ['#f12711', '#f5af19'], // Red-Orange
+        ['#654ea3', '#da98b4'], // Purple-Pink
+        ['#00c6ff', '#0072ff'], // Blue
+        ['#ff6a00', '#ee0979'], // Orange-Pink
+        ['#56ccf2', '#2f80ed'], // Light Blue
+        ['#f7971e', '#ffd200'], // Yellow-Orange
+        ['#834d9b', '#d04ed6'], // Purple-Magenta
+        ['#0052d4', '#65c7f7'], // Deep Blue
+        ['#ff0084', '#33001b'], // Pink-Dark
+        ['#00b09b', '#96c93d']  // Green-Yellow
+    ];
+    
+    const colorIndex = (photoNum - 1) % colors.length;
+    parent.style.background = `linear-gradient(135deg, ${colors[colorIndex][0]}, ${colors[colorIndex][1]})`;
+    parent.innerHTML = `<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; font-size:${parent.clientWidth/3}px;">${photoNum}</div>`;
+}
+
+// Fungsi untuk membuat foto terbang secara dinamis (tambahan)
+function createAdditionalFlyingPhotos() {
+    const flyingContainer = document.createElement('div');
+    flyingContainer.className = 'additional-flying-photos';
+    flyingContainer.style.position = 'fixed';
+    flyingContainer.style.top = '0';
+    flyingContainer.style.left = '0';
+    flyingContainer.style.width = '100%';
+    flyingContainer.style.height = '100%';
+    flyingContainer.style.pointerEvents = 'none';
+    flyingContainer.style.zIndex = '-1';
+    
+    // Array nama file foto
+    const photoFiles = [];
+    for (let i = 1; i <= 13; i++) {
+        photoFiles.push(`images/wallpaper/dekkson${i}.png`);
+    }
+    
+    // Tambahkan event listener untuk semua foto yang sudah ada
+    document.querySelectorAll('.flying-photo').forEach(photo => {
+        photo.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('paused');
+            
+            if (this.classList.contains('paused')) {
+                this.style.animationPlayState = 'paused';
+                this.title = 'Klik untuk play';
+            } else {
+                this.style.animationPlayState = 'running';
+                this.title = 'Klik untuk pause';
+            }
+        });
+    });
+    
+    // Fitur: Klik untuk pause semua foto
+    document.addEventListener('click', function(e) {
+        // Jika klik bukan pada foto
+        if (!e.target.closest('.flying-photo')) {
+            const photos = document.querySelectorAll('.flying-photo');
+            const allPaused = Array.from(photos).every(p => p.classList.contains('paused'));
+            
+            photos.forEach(photo => {
+                if (allPaused) {
+                    // Jika semua paused, play semua
+                    photo.classList.remove('paused');
+                    photo.style.animationPlayState = 'running';
+                    photo.title = 'Klik untuk pause';
+                } else {
+                    // Jika tidak, pause semua
+                    photo.classList.add('paused');
+                    photo.style.animationPlayState = 'paused';
+                    photo.title = 'Klik untuk play';
+                }
+            });
+        }
+    });
+    
+    document.body.appendChild(flyingContainer);
+}
+
+// Fungsi untuk mengatur posisi awal foto
+function setInitialPositions() {
+    const photos = document.querySelectorAll('.flying-photo');
+    
+    // Posisi awal yang tersebar
+    const positions = [
+        {top: '15%', left: '10%'}, {top: '25%', left: '85%'},
+        {top: '40%', left: '20%'}, {top: '60%', left: '75%'},
+        {top: '75%', left: '15%'}, {top: '20%', left: '50%'},
+        {top: '55%', left: '90%'}, {top: '80%', left: '40%'},
+        {top: '35%', left: '65%'}, {top: '65%', left: '30%'},
+        {top: '10%', left: '70%'}, {top: '45%', left: '5%'},
+        {top: '85%', left: '60%'}
+    ];
+    
+    photos.forEach((photo, index) => {
+        if (positions[index]) {
+            photo.style.top = positions[index].top;
+            photo.style.left = positions[index].left;
+        }
+        
+        // Tambahkan delay animasi acak untuk variasi
+        const delay = Math.random() * 5;
+        photo.style.animationDelay = `${delay}s`;
+    });
+}
+
+// Panggil fungsi setelah halaman dimuat
+window.addEventListener('load', function() {
+    setInitialPositions();
+    setTimeout(createAdditionalFlyingPhotos, 1000);
+    
+    // Fitur: Deteksi keyboard shortcut
+    document.addEventListener('keydown', function(e) {
+        // Space bar untuk pause/play semua
+        if (e.code === 'Space') {
+            e.preventDefault();
+            const photos = document.querySelectorAll('.flying-photo');
+            const allPaused = Array.from(photos).every(p => p.classList.contains('paused'));
+            
+            photos.forEach(photo => {
+                if (allPaused) {
+                    photo.classList.remove('paused');
+                    photo.style.animationPlayState = 'running';
+                } else {
+                    photo.classList.add('paused');
+                    photo.style.animationPlayState = 'paused';
+                }
+            });
+        }
+        
+        // 'R' untuk reset posisi
+        if (e.code === 'KeyR' && e.ctrlKey) {
+            e.preventDefault();
+            setInitialPositions();
+        }
+    });
+    
+    // Fitur: Sembunyikan foto saat form login aktif
+    const loginInputs = document.querySelectorAll('#phoneNumber, #password');
+    loginInputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            document.querySelectorAll('.flying-photo').forEach(photo => {
+                photo.style.opacity = '0.3';
+                photo.style.filter = 'blur(2px)';
+            });
+        });
+        
+        input.addEventListener('blur', function() {
+            document.querySelectorAll('.flying-photo').forEach(photo => {
+                photo.style.opacity = '';
+                photo.style.filter = '';
+            });
+        });
+    });
+});
+
+// Fitur: Foto tambahan acak (opsional)
+setTimeout(() => {
+    const colors = ['#FF5252', '#FF4081', '#E040FB', '#7C4DFF', '#536DFE', '#448AFF', '#40C4FF', '#18FFFF', '#64FFDA', '#69F0AE', '#B2FF59', '#EEFF41', '#FFFF00'];
+    
+    // Tambahkan beberapa foto acak kecil
+    for (let i = 0; i < 5; i++) {
+        const randomPhoto = document.createElement('div');
+        randomPhoto.className = 'flying-photo';
+        randomPhoto.style.width = `${30 + Math.random() * 20}px`;
+        randomPhoto.style.height = randomPhoto.style.width;
+        randomPhoto.style.background = colors[Math.floor(Math.random() * colors.length)];
+        randomPhoto.style.opacity = '0.4';
+        randomPhoto.style.position = 'fixed';
+        randomPhoto.style.borderRadius = '50%';
+        randomPhoto.style.top = `${Math.random() * 100}%`;
+        randomPhoto.style.left = `${Math.random() * 100}%`;
+        randomPhoto.style.zIndex = '-2';
+        randomPhoto.style.boxShadow = '0 0 10px currentColor';
+        
+        // Animasi sederhana
+        randomPhoto.style.animation = `floatPhoto${Math.floor(Math.random() * 13) + 1} ${20 + Math.random() * 20}s linear infinite`;
+        randomPhoto.style.animationDelay = `${Math.random() * 10}s`;
+        
+        randomPhoto.innerHTML = `<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:white; font-size:10px; font-weight:bold;">+</div>`;
+        
+        document.body.appendChild(randomPhoto);
+    }
+}, 3000);
+
+    </script>
+</body>
+</html>
