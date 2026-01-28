@@ -61,7 +61,7 @@
 
         /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -136,6 +136,7 @@
             align-items: center;
             gap: 20px;
             border: 1px solid var(--border);
+            cursor: pointer;
         }
 
         .stat-card:hover {
@@ -172,6 +173,10 @@
             background: linear-gradient(135deg, var(--danger) 0%, #c82333 100%);
         }
 
+        .stat-icon.purple {
+            background: linear-gradient(135deg, #6f42c1 0%, #4d2a8c 100%);
+        }
+
         .stat-info {
             flex-grow: 1;
         }
@@ -197,7 +202,7 @@
             margin-bottom: 30px;
         }
 
-        @media (max-width: 992px) {
+        @media (max-width: 1200px) {
             .main-content {
                 grid-template-columns: 1fr;
             }
@@ -257,6 +262,111 @@
             min-height: 120px;
             resize: vertical;
             font-family: inherit;
+        }
+
+        /* File Upload */
+        .file-upload-area {
+            border: 3px dashed var(--border);
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            background: #f8f9fa;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--primary);
+            background: #e8f4ff;
+        }
+
+        .file-upload-area.dragover {
+            border-color: var(--success);
+            background: #d4edda;
+        }
+
+        .file-upload-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .file-upload-text {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .file-upload-text small {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .file-list {
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .file-icon.pdf { background: #ff4757; }
+        .file-icon.word { background: #2b579a; }
+        .file-icon.excel { background: #217346; }
+        .file-icon.ppt { background: #d24726; }
+        .file-icon.image { background: #3742fa; }
+        .file-icon.other { background: #6c757d; }
+
+        .file-name {
+            flex: 1;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-size {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .file-remove {
+            color: var(--danger);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .file-remove:hover {
+            background: #f8d7da;
         }
 
         /* QR Section */
@@ -320,6 +430,8 @@
             padding: 30px;
             box-shadow: 0 5px 20px var(--shadow);
             border: 1px solid var(--border);
+            max-height: 600px;
+            overflow-y: auto;
         }
 
         .recent-documents h3 {
@@ -341,6 +453,7 @@
             margin-bottom: 10px;
             transition: all 0.3s;
             border: 1px solid var(--border);
+            cursor: pointer;
         }
 
         .document-item:hover {
@@ -349,8 +462,8 @@
         }
 
         .doc-icon {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background: var(--primary);
             color: white;
             border-radius: 8px;
@@ -358,27 +471,50 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            font-size: 1.2rem;
         }
 
         .doc-info {
             flex-grow: 1;
+            min-width: 0;
         }
 
         .doc-info strong {
             display: block;
             color: #333;
             margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .doc-info small {
             color: #666;
             font-size: 0.85rem;
+            display: block;
         }
 
-        .doc-amount {
+        .doc-status {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 12px;
             font-weight: 600;
-            color: var(--success);
-            flex-shrink: 0;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
         }
 
         .empty-state {
@@ -414,6 +550,7 @@
             justify-content: center;
             gap: 8px;
             text-decoration: none;
+            min-height: 48px;
         }
 
         .btn-primary {
@@ -475,6 +612,16 @@
         .btn-outline:hover {
             background: var(--primary);
             color: white;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            color: white;
+        }
+
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(23, 162, 184, 0.3);
         }
 
         /* Receipt Preview */
@@ -549,6 +696,46 @@
             font-size: 1.1rem;
         }
 
+        .attachments-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .attachments-section h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .attachment-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .attachment-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .attachment-item:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
         .signature-section {
             text-align: center;
             margin-top: 40px;
@@ -584,6 +771,59 @@
             padding: 10px 20px;
             border-radius: 25px;
             color: var(--primary);
+        }
+
+        /* History Log */
+        .history-log {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .history-log h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .log-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .log-item.approved {
+            border-left-color: var(--success);
+        }
+
+        .log-item.rejected {
+            border-left-color: var(--danger);
+        }
+
+        .log-time {
+            font-size: 0.85rem;
+            color: #666;
+            min-width: 120px;
+        }
+
+        .log-action {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .log-details {
+            color: #666;
+            font-size: 0.95rem;
         }
 
         /* Footer */
@@ -690,6 +930,7 @@
             gap: 10px;
             animation: slideIn 0.3s ease;
             border-left: 4px solid var(--primary);
+            max-width: 400px;
         }
 
         .alert-success {
@@ -707,6 +948,53 @@
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .modal-header h3 {
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
         }
 
         /* Responsive Design */
@@ -772,6 +1060,41 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 25px;
+        }
+
+        .tab {
+            padding: 12px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -779,7 +1102,7 @@
     <div class="github-banner">
         <i class="fab fa-github"></i> 
         Hosted on GitHub Pages • 
-        <a href="https://github.com/username/tanda-terima-digital" target="_blank">
+        <a href="https://github.com/dandidolor/laporan_kerja" target="_blank">
             View Source Code
         </a>
     </div>
@@ -790,9 +1113,9 @@
         <div class="header">
             <h1>
                 <i class="fas fa-file-signature"></i>
-                Tanda Terima Digital
+                Tanda Terima Digital Team Tax
             </h1>
-            <p>Sistem tanda terima online untuk verifikasi dan persetujuan dokumen secara digital</p>
+            <p>Sistem tanda terima online dengan upload file dan persetujuan digital</p>
             <div class="github-badge">
                 <i class="fab fa-github"></i>
                 GitHub Pages Ready
@@ -801,7 +1124,7 @@
         
         <!-- Stats Overview -->
         <div class="stats-overview">
-            <div class="stat-card">
+            <div class="stat-card" onclick="showAllDocuments()">
                 <div class="stat-icon blue">
                     <i class="fas fa-file-alt"></i>
                 </div>
@@ -811,7 +1134,7 @@
                 </div>
             </div>
             
-            <div class="stat-card">
+            <div class="stat-card" onclick="filterDocuments('approved')">
                 <div class="stat-icon green">
                     <i class="fas fa-check-circle"></i>
                 </div>
@@ -821,7 +1144,7 @@
                 </div>
             </div>
             
-            <div class="stat-card">
+            <div class="stat-card" onclick="filterDocuments('pending')">
                 <div class="stat-icon orange">
                     <i class="fas fa-clock"></i>
                 </div>
@@ -831,7 +1154,7 @@
                 </div>
             </div>
             
-            <div class="stat-card">
+            <div class="stat-card" onclick="filterDocuments('rejected')">
                 <div class="stat-icon red">
                     <i class="fas fa-times-circle"></i>
                 </div>
@@ -840,189 +1163,274 @@
                     <div class="stat-label">Ditolak</div>
                 </div>
             </div>
+            
+            <div class="stat-card" onclick="filterDocuments('with_files')">
+                <div class="stat-icon purple">
+                    <i class="fas fa-paperclip"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value" id="documentsWithFiles">0</div>
+                    <div class="stat-label">Dengan Lampiran</div>
+                </div>
+            </div>
         </div>
         
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Form Section -->
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('create')">Buat Baru</button>
+            <button class="tab" onclick="switchTab('history')">Riwayat</button>
+            <button class="tab" onclick="switchTab('files')">File Manager</button>
+        </div>
+        
+        <!-- Tab Content: Create New -->
+        <div id="tab-create" class="tab-content active">
+            <div class="main-content">
+                <!-- Form Section -->
+                <div class="form-section">
+                    <h2><i class="fas fa-edit"></i> Buat Tanda Terima Baru</h2>
+                    
+                    <form id="receiptForm">
+                        <div class="form-group">
+                            <label for="documentTitle">
+                                <i class="fas fa-heading"></i> Judul Dokumen
+                            </label>
+                            <input type="text" id="documentTitle" class="form-control" 
+                                   placeholder="Contoh: Invoice Pembayaran Januari 2025" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="documentNumber">
+                                <i class="fas fa-hashtag"></i> Nomor Dokumen
+                            </label>
+                            <input type="text" id="documentNumber" class="form-control" 
+                                   placeholder="Contoh: INV-2025-001" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="senderName">
+                                <i class="fas fa-user"></i> Pengirim
+                            </label>
+                            <input type="text" id="senderName" class="form-control" 
+                                   placeholder="Nama pengirim" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="receiverName">
+                                <i class="fas fa-user-tie"></i> Penerima
+                            </label>
+                            <input type="text" id="receiverName" class="form-control" 
+                                   placeholder="Nama penerima" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="receiverEmail">
+                                <i class="fas fa-envelope"></i> Email Penerima
+                            </label>
+                            <input type="email" id="receiverEmail" class="form-control" 
+                                   placeholder="email@contoh.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="documentDate">
+                                <i class="fas fa-calendar-alt"></i> Tanggal Dokumen
+                            </label>
+                            <input type="date" id="documentDate" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="amount">
+                                <i class="fas fa-money-bill-wave"></i> Jumlah/Nilai
+                            </label>
+                            <input type="text" id="amount" class="form-control" 
+                                   placeholder="Contoh: Rp 5.000.000" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description">
+                                <i class="fas fa-align-left"></i> Keterangan
+                            </label>
+                            <textarea id="description" class="form-control" 
+                                      placeholder="Deskripsi lengkap dokumen..." 
+                                      rows="4"></textarea>
+                        </div>
+                        
+                        <!-- File Upload Section -->
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-paperclip"></i> Lampiran File (PDF, Word, Excel, JPG, PPT)
+                            </label>
+                            <div class="file-upload-area" id="fileUploadArea">
+                                <div class="file-upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <div class="file-upload-text">
+                                    <p>Drag & drop file di sini atau klik untuk memilih</p>
+                                    <small>Maksimal 5MB per file. PDF, DOC, XLS, JPG, PNG, PPT</small>
+                                </div>
+                                <input type="file" id="fileInput" multiple style="display: none;" 
+                                       accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.ppt,.pptx">
+                            </div>
+                            <div class="file-list" id="fileList"></div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button type="button" class="btn btn-primary" id="generateBtn">
+                                <i class="fas fa-qrcode"></i> Generate QR Code
+                            </button>
+                            <button type="button" class="btn btn-info" id="approvalRequestBtn">
+                                <i class="fas fa-user-check"></i> Minta Persetujuan
+                            </button>
+                            <button type="button" class="btn btn-success" id="sendEmailBtn">
+                                <i class="fas fa-paper-plane"></i> Kirim via Email
+                            </button>
+                            <button type="button" class="btn btn-warning" id="whatsappBtn">
+                                <i class="fab fa-whatsapp"></i> Share via WhatsApp
+                            </button>
+                            <button type="reset" class="btn btn-secondary">
+                                <i class="fas fa-redo"></i> Reset Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- QR Code Section -->
+                    <div class="qr-section">
+                        <h3><i class="fas fa-qrcode"></i> QR Code Dokumen</h3>
+                        <div class="qr-container" id="qrContainer">
+                            <div class="qr-placeholder" id="qrPlaceholder">
+                                <i class="fas fa-qrcode"></i>
+                                <p>QR Code akan muncul setelah form diisi</p>
+                            </div>
+                            <div id="qrCodeContainer"></div>
+                        </div>
+                        
+                        <div class="share-options">
+                            <h4><i class="fas fa-share-alt"></i> Bagikan Dokumen</h4>
+                            <div class="share-buttons">
+                                <button class="btn btn-outline" id="copyLinkBtn">
+                                    <i class="fas fa-copy"></i> Copy Link
+                                </button>
+                                <button class="btn btn-outline" id="downloadQRBtn">
+                                    <i class="fas fa-download"></i> Download QR
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Documents -->
+                    <div class="recent-documents">
+                        <h3><i class="fas fa-history"></i> Dokumen Terbaru</h3>
+                        <div id="documentsList">
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <p>Belum ada dokumen</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Receipt Preview -->
+            <div class="receipt-preview" id="receiptPreview">
+                <div class="receipt-header">
+                    <h2>TANDA TERIMA DIGITAL</h2>
+                    <div class="receipt-meta">
+                        <span id="previewDocNumber">TT-2025-001</span>
+                        <span id="previewDate">1 Januari 2025</span>
+                    </div>
+                </div>
+                
+                <div class="receipt-body">
+                    <div class="receipt-info">
+                        <div class="info-row">
+                            <span class="label">Pengirim:</span>
+                            <span class="value" id="previewSender">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Penerima:</span>
+                            <span class="value" id="previewReceiver">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Jumlah:</span>
+                            <span class="value amount" id="previewAmount">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Keterangan:</span>
+                            <span class="value" id="previewDescription">-</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Attachments Preview -->
+                    <div class="attachments-section" id="attachmentsPreview" style="display: none;">
+                        <h4><i class="fas fa-paperclip"></i> Lampiran</h4>
+                        <div class="attachment-list" id="attachmentList"></div>
+                    </div>
+                    
+                    <div class="signature-section" id="signatureSection">
+                        <div class="signature-line"></div>
+                        <p class="signature-label">Tanda Tangan Digital Penerima</p>
+                    </div>
+                </div>
+                
+                <div class="receipt-footer">
+                    <div class="verification">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Diverifikasi secara digital • 
+                        <a href="#" id="verifyLink">Verifikasi dokumen ini</a></span>
+                    </div>
+                </div>
+                
+                <div class="action-buttons" style="margin-top: 30px;">
+                    <button type="button" class="btn btn-primary" id="printReceiptBtn">
+                        <i class="fas fa-print"></i> Print Tanda Terima
+                    </button>
+                    <button type="button" class="btn btn-success" id="approveBtn">
+                        <i class="fas fa-check"></i> Setujui Dokumen
+                    </button>
+                    <button type="button" class="btn btn-danger" id="rejectBtn">
+                        <i class="fas fa-times"></i> Tolak Dokumen
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Content: History -->
+        <div id="tab-history" class="tab-content">
+            <div class="history-log">
+                <h3><i class="fas fa-history"></i> Riwayat Persetujuan</h3>
+                <div id="historyList">
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <p>Belum ada riwayat</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recent-documents">
+                <h3><i class="fas fa-filter"></i> Filter Dokumen</h3>
+                <div class="action-buttons" style="margin: 0 0 20px 0;">
+                    <button class="btn btn-outline" onclick="filterDocuments('all')">Semua</button>
+                    <button class="btn btn-outline" onclick="filterDocuments('pending')">Menunggu</button>
+                    <button class="btn btn-outline" onclick="filterDocuments('approved')">Disetujui</button>
+                    <button class="btn btn-outline" onclick="filterDocuments('rejected')">Ditolak</button>
+                    <button class="btn btn-outline" onclick="filterDocuments('with_files')">Dengan File</button>
+                </div>
+                <div id="filteredDocuments"></div>
+            </div>
+        </div>
+        
+        <!-- Tab Content: Files -->
+        <div id="tab-files" class="tab-content">
             <div class="form-section">
-                <h2><i class="fas fa-edit"></i> Buat Tanda Terima Baru</h2>
-                
-                <form id="receiptForm">
-                    <div class="form-group">
-                        <label for="documentTitle">
-                            <i class="fas fa-heading"></i> Judul Dokumen
-                        </label>
-                        <input type="text" id="documentTitle" class="form-control" 
-                               placeholder="Contoh: Invoice Pembayaran Januari 2025" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="documentNumber">
-                            <i class="fas fa-hashtag"></i> Nomor Dokumen
-                        </label>
-                        <input type="text" id="documentNumber" class="form-control" 
-                               placeholder="Contoh: INV-2025-001" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="senderName">
-                            <i class="fas fa-user"></i> Pengirim
-                        </label>
-                        <input type="text" id="senderName" class="form-control" 
-                               placeholder="Nama pengirim" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="receiverName">
-                            <i class="fas fa-user-tie"></i> Penerima
-                        </label>
-                        <input type="text" id="receiverName" class="form-control" 
-                               placeholder="Nama penerima" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="receiverEmail">
-                            <i class="fas fa-envelope"></i> Email Penerima
-                        </label>
-                        <input type="email" id="receiverEmail" class="form-control" 
-                               placeholder="email@contoh.com" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="documentDate">
-                            <i class="fas fa-calendar-alt"></i> Tanggal Dokumen
-                        </label>
-                        <input type="date" id="documentDate" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="amount">
-                            <i class="fas fa-money-bill-wave"></i> Jumlah/Nilai
-                        </label>
-                        <input type="text" id="amount" class="form-control" 
-                               placeholder="Contoh: Rp 5.000.000" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="description">
-                            <i class="fas fa-align-left"></i> Keterangan
-                        </label>
-                        <textarea id="description" class="form-control" 
-                                  placeholder="Deskripsi lengkap dokumen..." 
-                                  rows="4"></textarea>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button type="button" class="btn btn-primary" id="generateBtn">
-                            <i class="fas fa-qrcode"></i> Generate QR Code
-                        </button>
-                        <button type="button" class="btn btn-success" id="sendEmailBtn">
-                            <i class="fas fa-paper-plane"></i> Kirim via Email
-                        </button>
-                        <button type="button" class="btn btn-warning" id="whatsappBtn">
-                            <i class="fab fa-whatsapp"></i> Share via WhatsApp
-                        </button>
-                        <button type="reset" class="btn btn-secondary">
-                            <i class="fas fa-redo"></i> Reset Form
-                        </button>
-                    </div>
-                </form>
-            </div>
-            
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- QR Code Section -->
-                <div class="qr-section">
-                    <h3><i class="fas fa-qrcode"></i> QR Code Dokumen</h3>
-                    <div class="qr-container" id="qrContainer">
-                        <div class="qr-placeholder" id="qrPlaceholder">
-                            <i class="fas fa-qrcode"></i>
-                            <p>QR Code akan muncul setelah form diisi</p>
-                        </div>
-                        <div id="qrCodeContainer"></div>
-                    </div>
-                    
-                    <div class="share-options">
-                        <h4><i class="fas fa-share-alt"></i> Bagikan Dokumen</h4>
-                        <div class="share-buttons">
-                            <button class="btn btn-outline" id="copyLinkBtn">
-                                <i class="fas fa-copy"></i> Copy Link
-                            </button>
-                            <button class="btn btn-outline" id="downloadQRBtn">
-                                <i class="fas fa-download"></i> Download QR
-                            </button>
-                        </div>
+                <h2><i class="fas fa-folder-open"></i> File Manager</h2>
+                <div id="fileManager">
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <p>Belum ada file</p>
                     </div>
                 </div>
-                
-                <!-- Recent Documents -->
-                <div class="recent-documents">
-                    <h3><i class="fas fa-history"></i> Dokumen Terbaru</h3>
-                    <div id="documentsList">
-                        <div class="empty-state">
-                            <i class="fas fa-inbox"></i>
-                            <p>Belum ada dokumen</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Receipt Preview -->
-        <div class="receipt-preview" id="receiptPreview">
-            <div class="receipt-header">
-                <h2>TANDA TERIMA DIGITAL</h2>
-                <div class="receipt-meta">
-                    <span id="previewDocNumber">TT-2025-001</span>
-                    <span id="previewDate">1 Januari 2025</span>
-                </div>
-            </div>
-            
-            <div class="receipt-body">
-                <div class="receipt-info">
-                    <div class="info-row">
-                        <span class="label">Pengirim:</span>
-                        <span class="value" id="previewSender">-</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="label">Penerima:</span>
-                        <span class="value" id="previewReceiver">-</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="label">Jumlah:</span>
-                        <span class="value amount" id="previewAmount">-</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="label">Keterangan:</span>
-                        <span class="value" id="previewDescription">-</span>
-                    </div>
-                </div>
-                
-                <div class="signature-section">
-                    <div class="signature-line"></div>
-                    <p class="signature-label">Tanda Tangan Digital Penerima</p>
-                </div>
-            </div>
-            
-            <div class="receipt-footer">
-                <div class="verification">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Diverifikasi secara digital • 
-                    <a href="#" id="verifyLink">Verifikasi dokumen ini</a></span>
-                </div>
-            </div>
-            
-            <div class="action-buttons" style="margin-top: 30px;">
-                <button type="button" class="btn btn-primary" id="printReceiptBtn">
-                    <i class="fas fa-print"></i> Print Tanda Terima
-                </button>
-                <button type="button" class="btn btn-success" id="approveBtn">
-                    <i class="fas fa-check"></i> Setujui Dokumen
-                </button>
-                <button type="button" class="btn btn-danger" id="rejectBtn">
-                    <i class="fas fa-times"></i> Tolak Dokumen
-                </button>
             </div>
         </div>
         
@@ -1031,14 +1439,14 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <h3><i class="fas fa-file-contract"></i> Team Tax Digital</h3>
-                    <p>Sistem tanda terima digital yang aman dan terverifikasi. Hosted on GitHub Pages.</p>
+                    <p>Sistem tanda terima digital dengan upload file dan persetujuan online. Hosted on GitHub Pages.</p>
                 </div>
                 
                 <div class="footer-links">
                     <a href="#features"><i class="fas fa-star"></i> Fitur</a>
                     <a href="#help"><i class="fas fa-question-circle"></i> Bantuan</a>
                     <a href="#contact"><i class="fas fa-envelope"></i> Kontak</a>
-                    <a href="https://github.com/username/tanda-terima-digital" target="_blank">
+                    <a href="https://github.com/dandidolor/laporan_kerja" target="_blank">
                         <i class="fab fa-github"></i> Source Code
                     </a>
                 </div>
@@ -1046,7 +1454,7 @@
                 <div class="footer-tech">
                     <span class="tech-badge">GitHub Pages</span>
                     <span class="tech-badge">JavaScript</span>
-                    <span class="tech-badge">LocalStorage</span>
+                    <span class="tech-badge">File Upload</span>
                     <span class="tech-badge">QR Code</span>
                     <span class="tech-badge">WhatsApp API</span>
                     <span class="tech-badge">Responsive</span>
@@ -1057,14 +1465,25 @@
                 <p>© 2025 Team Tax Management System. Hosted on GitHub Pages.</p>
                 <p class="github-link">
                     <i class="fab fa-github"></i> 
-                    <a href="https://github.com/username/tanda-terima-digital" target="_blank">
-                        github.com/username/tanda-terima-digital
+                    <a href="https://github.com/dandidolor/laporan_kerja" target="_blank">
+                        github.com/dandidolor/laporan_kerja
                     </a>
                 </p>
             </div>
         </footer>
     </div>
     
+    <!-- Modal for Document Details -->
+    <div class="modal" id="documentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Detail Dokumen</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
     <!-- GitHub Pages Badge -->
     <a href="https://pages.github.com" class="github-pages-badge" target="_blank" title="Hosted on GitHub Pages">
         <img src="https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-blue?logo=github&style=for-the-badge" 
@@ -1077,7 +1496,11 @@
     
     <script>
         // ==================== TANDA TERIMA DIGITAL SYSTEM ====================
-        // GitHub Pages Version - Full Implementation
+        // VERSI LENGKAP dengan Upload File & Approval System
+        
+        // Global Variables
+        let uploadedFiles = [];
+        let currentDocumentId = null;
         
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 Tanda Terima Digital System Initialized');
@@ -1096,15 +1519,20 @@
             // Event Listeners
             setupEventListeners();
             
-            // Check for URL parameters (for verification)
+            // Check for URL parameters (for verification/approval)
             checkUrlParameters();
+            
+            // Load initial data
+            loadDocuments();
+            updateStats();
+            loadHistory();
+            loadFileManager();
         });
 
         // ==================== INITIALIZATION ====================
         function initApp() {
-            console.log('📂 Loading documents from LocalStorage...');
-            loadDocuments();
-            updateStats();
+            console.log('📂 Initializing Digital Receipt System...');
+            // Load any existing data
         }
 
         function setupEventListeners() {
@@ -1112,6 +1540,7 @@
             document.getElementById('generateBtn').addEventListener('click', generateQRCode);
             document.getElementById('sendEmailBtn').addEventListener('click', sendEmail);
             document.getElementById('whatsappBtn').addEventListener('click', shareViaWhatsApp);
+            document.getElementById('approvalRequestBtn').addEventListener('click', requestApproval);
             document.getElementById('copyLinkBtn').addEventListener('click', copyShareableLink);
             document.getElementById('downloadQRBtn').addEventListener('click', downloadQRCode);
             document.getElementById('printReceiptBtn').addEventListener('click', printReceipt);
@@ -1119,13 +1548,148 @@
             document.getElementById('rejectBtn').addEventListener('click', rejectDocument);
             document.getElementById('verifyLink').addEventListener('click', verifyDocument);
             
+            // File Upload
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const fileInput = document.getElementById('fileInput');
+            
+            fileUploadArea.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // Drag & Drop
+            fileUploadArea.addEventListener('dragover', handleDragOver);
+            fileUploadArea.addEventListener('dragleave', handleDragLeave);
+            fileUploadArea.addEventListener('drop', handleFileDrop);
+            
             // Form Reset
             document.getElementById('receiptForm').addEventListener('reset', function() {
                 document.getElementById('receiptPreview').style.display = 'none';
                 document.getElementById('qrPlaceholder').style.display = 'block';
                 document.getElementById('qrCodeContainer').innerHTML = '';
+                uploadedFiles = [];
+                updateFileList();
                 showAlert('Form telah direset!', 'success');
             });
+        }
+
+        // ==================== FILE UPLOAD FUNCTIONS ====================
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            processFiles(files);
+        }
+
+        function handleDragOver(event) {
+            event.preventDefault();
+            document.getElementById('fileUploadArea').classList.add('dragover');
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            document.getElementById('fileUploadArea').classList.remove('dragover');
+        }
+
+        function handleFileDrop(event) {
+            event.preventDefault();
+            document.getElementById('fileUploadArea').classList.remove('dragover');
+            
+            const files = event.dataTransfer.files;
+            processFiles(files);
+        }
+
+        function processFiles(files) {
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            const allowedTypes = [
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'image/jpeg',
+                'image/jpg',
+                'image/png',
+                'image/gif'
+            ];
+            
+            for (let file of files) {
+                // Check file size
+                if (file.size > maxSize) {
+                    showAlert(`File ${file.name} terlalu besar (max 5MB)`, 'error');
+                    continue;
+                }
+                
+                // Check file type
+                if (!allowedTypes.includes(file.type)) {
+                    showAlert(`File ${file.name} tidak didukung`, 'error');
+                    continue;
+                }
+                
+                // Read file as base64
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedFiles.push({
+                        name: file.name,
+                        type: file.type,
+                        size: file.size,
+                        data: e.target.result.split(',')[1], // Remove data URL prefix
+                        uploadedAt: new Date().toISOString()
+                    });
+                    updateFileList();
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            // Reset file input
+            document.getElementById('fileInput').value = '';
+        }
+
+        function getFileIcon(type) {
+            if (type.includes('pdf')) return { icon: 'fas fa-file-pdf', class: 'pdf' };
+            if (type.includes('word') || type.includes('document')) return { icon: 'fas fa-file-word', class: 'word' };
+            if (type.includes('excel') || type.includes('spreadsheet')) return { icon: 'fas fa-file-excel', class: 'excel' };
+            if (type.includes('powerpoint') || type.includes('presentation')) return { icon: 'fas fa-file-powerpoint', class: 'ppt' };
+            if (type.includes('image')) return { icon: 'fas fa-file-image', class: 'image' };
+            return { icon: 'fas fa-file', class: 'other' };
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function updateFileList() {
+            const fileList = document.getElementById('fileList');
+            
+            if (uploadedFiles.length === 0) {
+                fileList.innerHTML = '<p style="color: #999; text-align: center; padding: 20px;">Belum ada file</p>';
+                return;
+            }
+            
+            fileList.innerHTML = uploadedFiles.map((file, index) => {
+                const fileIcon = getFileIcon(file.type);
+                return `
+                    <div class="file-item">
+                        <div class="file-info">
+                            <div class="file-icon ${fileIcon.class}">
+                                <i class="${fileIcon.icon}"></i>
+                            </div>
+                            <div class="file-name" title="${file.name}">${file.name}</div>
+                            <div class="file-size">${formatFileSize(file.size)}</div>
+                        </div>
+                        <div class="file-remove" onclick="removeFile(${index})">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
         }
 
         // ==================== DOCUMENT MANAGEMENT ====================
@@ -1135,7 +1699,6 @@
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
             
-            // Get document count from localStorage
             const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
             const count = documents.length + 1;
             
@@ -1154,11 +1717,16 @@
                 date: document.getElementById('documentDate').value,
                 amount: document.getElementById('amount').value.trim(),
                 description: document.getElementById('description').value.trim(),
+                files: [...uploadedFiles], // Copy uploaded files
                 status: 'pending',
                 createdAt: new Date().toISOString(),
                 approvedAt: null,
                 rejectedAt: null,
-                qrGenerated: false
+                approvedBy: null,
+                rejectedBy: null,
+                rejectionReason: null,
+                qrGenerated: false,
+                history: []
             };
         }
 
@@ -1193,6 +1761,8 @@
             if (!validateForm()) return;
             
             const formData = getFormData();
+            currentDocumentId = formData.id;
+            
             const verificationUrl = `${window.location.origin}${window.location.pathname}?verify=${formData.id}`;
             
             // QR Code Data
@@ -1205,6 +1775,7 @@
                 receiver: formData.receiver,
                 amount: formData.amount,
                 date: formData.date,
+                hasFiles: formData.files.length > 0,
                 verification_url: verificationUrl,
                 timestamp: new Date().toISOString()
             });
@@ -1264,6 +1835,25 @@
             document.getElementById('previewAmount').textContent = data.amount;
             document.getElementById('previewDescription').textContent = data.description || '-';
             
+            // Update attachments
+            const attachmentsPreview = document.getElementById('attachmentsPreview');
+            const attachmentList = document.getElementById('attachmentList');
+            
+            if (data.files && data.files.length > 0) {
+                attachmentsPreview.style.display = 'block';
+                attachmentList.innerHTML = data.files.map(file => {
+                    const fileIcon = getFileIcon(file.type);
+                    return `
+                        <a href="#" class="attachment-item" onclick="downloadFile('${file.name}', '${file.data}')">
+                            <i class="${fileIcon.icon}"></i>
+                            <span>${file.name}</span>
+                        </a>
+                    `;
+                }).join('');
+            } else {
+                attachmentsPreview.style.display = 'none';
+            }
+            
             // Show receipt preview
             document.getElementById('receiptPreview').style.display = 'block';
             
@@ -1276,7 +1866,252 @@
             }, 300);
         }
 
-        // ==================== SHARING & EXPORT ====================
+        // ==================== APPROVAL SYSTEM ====================
+        function requestApproval() {
+            if (!validateForm()) return;
+            
+            const formData = getFormData();
+            saveDocument(formData);
+            
+            const approvalLink = `${window.location.origin}${window.location.pathname}?approve=${formData.id}`;
+            
+            const message = `📋 *TANDA TERIMA DIGITAL - PERLU PERSETUJUAN*
+
+*Judul:* ${formData.title}
+*Nomor:* ${formData.documentNumber}
+*Pengirim:* ${formData.sender}
+*Penerima:* ${formData.receiver}
+*Jumlah:* ${formData.amount}
+${formData.files.length > 0 ? `📎 *Lampiran:* ${formData.files.length} file` : ''}
+
+🔗 *LINK UNTUK ACC/SETUJU:*
+${approvalLink}
+
+📱 *INSTRUKSI:*
+1. Klik link di atas
+2. Tinjau dokumen & lampiran
+3. Klik "SETUJUI" atau "TOLAK"
+4. Selesai!
+
+_© Team Tax System_`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+            showAlert('📱 Link persetujuan berhasil dibuat! Kirim ke penerima.', 'success');
+            
+            // Add to history
+            addHistory({
+                action: 'request_approval',
+                documentId: formData.id,
+                documentNumber: formData.documentNumber,
+                receiver: formData.receiver,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function approveDocument() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const approveId = urlParams.get('approve') || currentDocumentId;
+            
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            const docIndex = documents.findIndex(d => d.id === approveId);
+            
+            if (docIndex === -1) {
+                showAlert('Dokumen tidak ditemukan!', 'error');
+                return;
+            }
+            
+            const doc = documents[docIndex];
+            
+            // Update document status
+            doc.status = 'approved';
+            doc.approvedAt = new Date().toISOString();
+            doc.approvedBy = doc.receiver;
+            
+            // Add to history
+            if (!doc.history) doc.history = [];
+            doc.history.push({
+                action: 'approved',
+                by: doc.receiver,
+                timestamp: new Date().toISOString(),
+                note: 'Dokumen telah disetujui'
+            });
+            
+            // Save changes
+            documents[docIndex] = doc;
+            localStorage.setItem('teamTaxDocuments', JSON.stringify(documents));
+            
+            // Update UI
+            updateStats();
+            loadDocuments();
+            loadHistory();
+            
+            // Show success message
+            showAlert('✅ Dokumen berhasil disetujui!', 'success');
+            
+            // Update signature section
+            const signatureSection = document.getElementById('signatureSection');
+            signatureSection.innerHTML = `
+                <div style="color: #28a745; text-align: center; padding: 20px;">
+                    <i class="fas fa-check-circle" style="font-size: 4rem;"></i>
+                    <h3 style="margin: 15px 0 10px;">✅ DISETUJUI</h3>
+                    <p style="margin: 0; color: #666;">
+                        ${new Date().toLocaleDateString('id-ID', { 
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}
+                    </p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">
+                        Oleh: ${doc.receiver}
+                    </p>
+                </div>
+            `;
+            
+            // Generate notification for sender
+            const notificationMessage = `✅ *PERSETUJUAN TANDA TERIMA*
+
+Dokumen telah DISETUJUI!
+
+📋 *Detail:*
+Judul: ${doc.title}
+Nomor: ${doc.documentNumber}
+Penerima: ${doc.receiver}
+Jumlah: ${doc.amount}
+Waktu: ${new Date().toLocaleDateString('id-ID HH:mm')}
+
+👤 *Disetujui oleh:* ${doc.receiver}
+
+🔗 *Lihat Dokumen:*
+${window.location.origin}${window.location.pathname}?verify=${doc.id}`;
+            
+            // Store notification for sharing
+            localStorage.setItem('lastNotification', notificationMessage);
+            
+            // Show share button
+            const actionButtons = document.querySelector('.action-buttons');
+            actionButtons.innerHTML += `
+                <button class="btn btn-info" onclick="shareNotification()">
+                    <i class="fab fa-whatsapp"></i> Beritahu Pengirim
+                </button>
+            `;
+        }
+
+        function rejectDocument() {
+            const reason = prompt('Masukkan alasan penolakan:');
+            if (!reason) return;
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const approveId = urlParams.get('approve') || currentDocumentId;
+            
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            const docIndex = documents.findIndex(d => d.id === approveId);
+            
+            if (docIndex === -1) {
+                showAlert('Dokumen tidak ditemukan!', 'error');
+                return;
+            }
+            
+            const doc = documents[docIndex];
+            
+            // Update document status
+            doc.status = 'rejected';
+            doc.rejectedAt = new Date().toISOString();
+            doc.rejectedBy = doc.receiver;
+            doc.rejectionReason = reason;
+            
+            // Add to history
+            if (!doc.history) doc.history = [];
+            doc.history.push({
+                action: 'rejected',
+                by: doc.receiver,
+                timestamp: new Date().toISOString(),
+                note: `Ditolak: ${reason}`
+            });
+            
+            // Save changes
+            documents[docIndex] = doc;
+            localStorage.setItem('teamTaxDocuments', JSON.stringify(documents));
+            
+            // Update UI
+            updateStats();
+            loadDocuments();
+            loadHistory();
+            
+            // Show warning message
+            showAlert('❌ Dokumen telah ditolak', 'warning');
+            
+            // Update signature section
+            const signatureSection = document.getElementById('signatureSection');
+            signatureSection.innerHTML = `
+                <div style="color: #dc3545; text-align: center; padding: 20px;">
+                    <i class="fas fa-times-circle" style="font-size: 4rem;"></i>
+                    <h3 style="margin: 15px 0 10px;">❌ DITOLAK</h3>
+                    <p style="margin: 0; color: #666;">
+                        Alasan: ${reason}
+                    </p>
+                    <p style="margin: 5px 0; color: #666;">
+                        ${new Date().toLocaleDateString('id-ID', { 
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}
+                    </p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">
+                        Oleh: ${doc.receiver}
+                    </p>
+                </div>
+            `;
+            
+            // Generate notification for sender
+            const notificationMessage = `❌ *PENOLAKAN TANDA TERIMA*
+
+Dokumen telah DITOLAK!
+
+📋 *Detail:*
+Judul: ${doc.title}
+Nomor: ${doc.documentNumber}
+Penerima: ${doc.receiver}
+Jumlah: ${doc.amount}
+Alasan: ${reason}
+Waktu: ${new Date().toLocaleDateString('id-ID HH:mm')}
+
+👤 *Ditolak oleh:* ${doc.receiver}
+
+🔗 *Lihat Dokumen:*
+${window.location.origin}${window.location.pathname}?verify=${doc.id}`;
+            
+            // Store notification for sharing
+            localStorage.setItem('lastNotification', notificationMessage);
+            
+            // Show share button
+            const actionButtons = document.querySelector('.action-buttons');
+            actionButtons.innerHTML += `
+                <button class="btn btn-info" onclick="shareNotification()">
+                    <i class="fab fa-whatsapp"></i> Beritahu Pengirim
+                </button>
+            `;
+        }
+
+        function shareNotification() {
+            const message = localStorage.getItem('lastNotification') || 
+                "Status dokumen telah berubah!";
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // ==================== SHARING FUNCTIONS ====================
         function shareViaWhatsApp() {
             const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
             if (documents.length === 0) {
@@ -1295,6 +2130,7 @@
 *Penerima:* ${latestDoc.receiver}
 *Jumlah:* ${latestDoc.amount}
 *Tanggal:* ${new Date(latestDoc.date).toLocaleDateString('id-ID')}
+${latestDoc.files && latestDoc.files.length > 0 ? `📎 *Lampiran:* ${latestDoc.files.length} file` : ''}
 
 🔗 *Verifikasi Dokumen:*
 ${verificationUrl}
@@ -1333,6 +2169,7 @@ PENERIMA: ${formData.receiver}
 JUMLAH: ${formData.amount}
 TANGGAL: ${new Date(formData.date).toLocaleDateString('id-ID')}
 KETERANGAN: ${formData.description || '-'}
+${formData.files.length > 0 ? `LAMPIRAN: ${formData.files.length} file terlampir` : ''}
 
 LINK VERIFIKASI: ${verificationUrl}
 
@@ -1365,156 +2202,35 @@ Digital Receipt System`;
                 .catch(() => showAlert('❌ Gagal menyalin link', 'error'));
         }
 
-        function downloadQRCode() {
-            const canvas = document.querySelector('#qrCodeContainer canvas');
-            if (!canvas) {
-                showAlert('Buat QR Code terlebih dahulu!', 'error');
-                return;
-            }
-            
-            const link = document.createElement('a');
-            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
-            const latestDoc = documents[documents.length - 1];
-            
-            link.download = `QRCode-${latestDoc.documentNumber}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-            
-            showAlert('✅ QR Code berhasil diunduh!', 'success');
-        }
-
-        // ==================== DOCUMENT ACTIONS ====================
-        function approveDocument() {
-            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
-            if (documents.length === 0) return;
-            
-            const latestDoc = documents[documents.length - 1];
-            latestDoc.status = 'approved';
-            latestDoc.approvedAt = new Date().toISOString();
-            
-            localStorage.setItem('teamTaxDocuments', JSON.stringify(documents));
-            updateStats();
-            
-            showAlert('✅ Dokumen berhasil disetujui!', 'success');
-            
-            // Update UI
-            const signatureSection = document.querySelector('.signature-section');
-            signatureSection.innerHTML = `
-                <div style="color: #28a745; text-align: center;">
-                    <i class="fas fa-check-circle" style="font-size: 3rem;"></i>
-                    <h3 style="margin: 10px 0 5px;">DISETUJUI</h3>
-                    <p style="margin: 0; color: #666;">
-                        ${new Date().toLocaleDateString('id-ID', { 
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        })}
-                    </p>
-                    <p style="margin-top: 10px; font-size: 0.9em;">
-                        Oleh: ${latestDoc.receiver}
-                    </p>
-                </div>
-            `;
-        }
-
-        function rejectDocument() {
-            const reason = prompt('Masukkan alasan penolakan:');
-            if (!reason) return;
-            
-            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
-            if (documents.length === 0) return;
-            
-            const latestDoc = documents[documents.length - 1];
-            latestDoc.status = 'rejected';
-            latestDoc.rejectedAt = new Date().toISOString();
-            latestDoc.rejectionReason = reason;
-            
-            localStorage.setItem('teamTaxDocuments', JSON.stringify(documents));
-            updateStats();
-            
-            showAlert('❌ Dokumen telah ditolak', 'warning');
-            
-            // Update UI
-            const signatureSection = document.querySelector('.signature-section');
-            signatureSection.innerHTML = `
-                <div style="color: #dc3545; text-align: center;">
-                    <i class="fas fa-times-circle" style="font-size: 3rem;"></i>
-                    <h3 style="margin: 10px 0 5px;">DITOLAK</h3>
-                    <p style="margin: 0; color: #666;">
-                        Alasan: ${reason}
-                    </p>
-                    <p style="margin: 5px 0; color: #666;">
-                        ${new Date().toLocaleDateString('id-ID', { 
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        })}
-                    </p>
-                </div>
-            `;
-        }
-
-        function verifyDocument() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const docId = urlParams.get('verify');
-            
-            if (docId) {
-                const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
-                const doc = documents.find(d => d.id === docId);
-                
-                if (doc) {
-                    const status = doc.status || 'pending';
-                    const statusColors = {
-                        'pending': '#ffc107',
-                        'approved': '#28a745',
-                        'rejected': '#dc3545'
-                    };
-                    
-                    const statusText = {
-                        'pending': 'MENUNGGU',
-                        'approved': 'DISETUJUI',
-                        'rejected': 'DITOLAK'
-                    };
-                    
-                    alert(`🔍 VERIFIKASI DOKUMEN
-
-📄 Judul: ${doc.title}
-🔢 Nomor: ${doc.documentNumber}
-👤 Pengirim: ${doc.sender}
-👥 Penerima: ${doc.receiver}
-💰 Jumlah: ${doc.amount}
-📅 Tanggal: ${new Date(doc.date).toLocaleDateString('id-ID')}
-📊 Status: ${statusText[status]}
-
-${doc.status === 'rejected' ? `❌ Alasan: ${doc.rejectionReason}` : ''}
-${doc.approvedAt ? `✅ Disetujui pada: ${new Date(doc.approvedAt).toLocaleDateString('id-ID')}` : ''}
-
-Dokumen ini valid dan terverifikasi secara digital.`);
-                } else {
-                    showAlert('❌ Dokumen tidak ditemukan!', 'error');
-                }
-            } else {
-                const input = prompt('Masukkan ID Dokumen untuk verifikasi:');
-                if (input) {
-                    window.location.search = `?verify=${input}`;
-                }
-            }
-        }
-
         // ==================== STORAGE MANAGEMENT ====================
         function saveDocument(doc) {
             let documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
-            documents.push(doc);
+            
+            // Check if document already exists
+            const existingIndex = documents.findIndex(d => d.id === doc.id);
+            if (existingIndex >= 0) {
+                documents[existingIndex] = doc;
+            } else {
+                documents.push(doc);
+            }
+            
             localStorage.setItem('teamTaxDocuments', JSON.stringify(documents));
             
+            // Update UI
             updateDocumentsList();
             updateStats();
+            loadFileManager();
+            
+            // Add to history if new
+            if (existingIndex === -1) {
+                addHistory({
+                    action: 'created',
+                    documentId: doc.id,
+                    documentNumber: doc.documentNumber,
+                    sender: doc.sender,
+                    timestamp: new Date().toISOString()
+                });
+            }
         }
 
         function loadDocuments() {
@@ -1538,41 +2254,21 @@ Dokumen ini valid dan terverifikasi secara digital.`);
             // Show latest 5 documents
             const recentDocs = documents.slice(-5).reverse();
             container.innerHTML = recentDocs.map(doc => `
-                <div class="document-item" onclick="viewDocument('${doc.id}')" style="cursor: pointer;">
+                <div class="document-item" onclick="viewDocumentDetail('${doc.id}')">
                     <div class="doc-icon">
-                        <i class="fas fa-file-invoice-dollar"></i>
+                        <i class="${doc.files && doc.files.length > 0 ? 'fas fa-paperclip' : 'fas fa-file-invoice-dollar'}"></i>
                     </div>
                     <div class="doc-info">
                         <strong>${doc.title}</strong>
                         <small>${doc.documentNumber} • ${new Date(doc.date).toLocaleDateString('id-ID')}</small>
+                        <small>${doc.sender} → ${doc.receiver}</small>
                     </div>
-                    <div class="doc-amount">
-                        ${doc.amount}
+                    <div class="doc-status status-${doc.status || 'pending'}">
+                        ${doc.status === 'approved' ? 'DISETUJUI' : 
+                          doc.status === 'rejected' ? 'DITOLAK' : 'MENUNGGU'}
                     </div>
                 </div>
             `).join('');
-        }
-
-        function viewDocument(docId) {
-            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
-            const doc = documents.find(d => d.id === docId);
-            
-            if (doc) {
-                // Fill form with document data
-                document.getElementById('documentTitle').value = doc.title;
-                document.getElementById('documentNumber').value = doc.documentNumber;
-                document.getElementById('senderName').value = doc.sender;
-                document.getElementById('receiverName').value = doc.receiver;
-                document.getElementById('receiverEmail').value = doc.receiverEmail;
-                document.getElementById('documentDate').value = doc.date;
-                document.getElementById('amount').value = doc.amount;
-                document.getElementById('description').value = doc.description;
-                
-                // Update preview
-                updateReceiptPreview(doc);
-                
-                showAlert('📄 Dokumen dimuat!', 'success');
-            }
         }
 
         function updateStats() {
@@ -1582,14 +2278,190 @@ Dokumen ini valid dan terverifikasi secara digital.`);
             const approved = documents.filter(d => d.status === 'approved').length;
             const pending = documents.filter(d => !d.status || d.status === 'pending').length;
             const rejected = documents.filter(d => d.status === 'rejected').length;
+            const withFiles = documents.filter(d => d.files && d.files.length > 0).length;
             
             document.getElementById('totalDocuments').textContent = total;
             document.getElementById('approvedDocuments').textContent = approved;
             document.getElementById('pendingDocuments').textContent = pending;
             document.getElementById('rejectedDocuments').textContent = rejected;
+            document.getElementById('documentsWithFiles').textContent = withFiles;
         }
 
-        // ==================== PRINT FUNCTION ====================
+        // ==================== HISTORY & LOGS ====================
+        function addHistory(log) {
+            let history = JSON.parse(localStorage.getItem('receiptHistory')) || [];
+            history.unshift(log);
+            
+            // Keep only last 100 entries
+            if (history.length > 100) {
+                history = history.slice(0, 100);
+            }
+            
+            localStorage.setItem('receiptHistory', JSON.stringify(history));
+            loadHistory();
+        }
+
+        function loadHistory() {
+            const history = JSON.parse(localStorage.getItem('receiptHistory')) || [];
+            const container = document.getElementById('historyList');
+            
+            if (history.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <p>Belum ada riwayat</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = history.map(log => {
+                const time = new Date(log.timestamp).toLocaleString('id-ID');
+                let actionText = '';
+                let actionIcon = '';
+                let actionClass = '';
+                
+                switch(log.action) {
+                    case 'created':
+                        actionText = `Dokumen ${log.documentNumber} dibuat oleh ${log.sender}`;
+                        actionIcon = 'fas fa-plus-circle';
+                        actionClass = '';
+                        break;
+                    case 'request_approval':
+                        actionText = `Permintaan persetujuan dikirim ke ${log.receiver}`;
+                        actionIcon = 'fas fa-user-check';
+                        actionClass = '';
+                        break;
+                    case 'approved':
+                        actionText = `Dokumen disetujui oleh ${log.by}`;
+                        actionIcon = 'fas fa-check-circle';
+                        actionClass = 'approved';
+                        break;
+                    case 'rejected':
+                        actionText = `Dokumen ditolak oleh ${log.by}`;
+                        if (log.note) actionText += `: ${log.note.split(': ')[1]}`;
+                        actionIcon = 'fas fa-times-circle';
+                        actionClass = 'rejected';
+                        break;
+                    default:
+                        actionText = log.action;
+                }
+                
+                return `
+                    <div class="log-item ${actionClass}">
+                        <div class="log-time">
+                            <i class="${actionIcon}"></i>
+                            ${time}
+                        </div>
+                        <div class="log-details">
+                            <div class="log-action">${actionText}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==================== FILE MANAGER ====================
+        function loadFileManager() {
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            const container = document.getElementById('fileManager');
+            
+            // Collect all files from all documents
+            let allFiles = [];
+            documents.forEach(doc => {
+                if (doc.files && doc.files.length > 0) {
+                    doc.files.forEach(file => {
+                        allFiles.push({
+                            ...file,
+                            documentId: doc.id,
+                            documentNumber: doc.documentNumber,
+                            documentTitle: doc.title,
+                            uploadDate: file.uploadedAt || doc.createdAt
+                        });
+                    });
+                }
+            });
+            
+            if (allFiles.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <p>Belum ada file</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Sort by upload date (newest first)
+            allFiles.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+            
+            container.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <p>Total: ${allFiles.length} file dari ${documents.filter(d => d.files && d.files.length > 0).length} dokumen</p>
+                </div>
+                <div class="file-list">
+                    ${allFiles.map(file => {
+                        const fileIcon = getFileIcon(file.type);
+                        return `
+                            <div class="file-item">
+                                <div class="file-info">
+                                    <div class="file-icon ${fileIcon.class}">
+                                        <i class="${fileIcon.icon}"></i>
+                                    </div>
+                                    <div>
+                                        <div class="file-name" title="${file.name}">${file.name}</div>
+                                        <div style="font-size: 0.8rem; color: #666;">
+                                            ${file.documentTitle} (${file.documentNumber})
+                                        </div>
+                                    </div>
+                                    <div class="file-size">${formatFileSize(file.size)}</div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-outline btn-sm" onclick="downloadFile('${file.name}', '${file.data}')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="btn btn-outline btn-sm" onclick="viewDocumentDetail('${file.documentId}')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function downloadFile(filename, base64Data) {
+            try {
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = 'data:application/octet-stream;base64,' + base64Data;
+                link.click();
+                showAlert(`✅ File ${filename} berhasil diunduh!`, 'success');
+            } catch (error) {
+                showAlert(`❌ Gagal mengunduh file: ${error.message}`, 'error');
+            }
+        }
+
+        function downloadQRCode() {
+            const canvas = document.querySelector('#qrCodeContainer canvas');
+            if (!canvas) {
+                showAlert('Buat QR Code terlebih dahulu!', 'error');
+                return;
+            }
+            
+            const link = document.createElement('a');
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            const latestDoc = documents[documents.length - 1];
+            
+            link.download = `QRCode-${latestDoc.documentNumber}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            showAlert('✅ QR Code berhasil diunduh!', 'success');
+        }
+
         function printReceipt() {
             const printWindow = window.open('', '_blank');
             const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
@@ -1638,6 +2510,12 @@ Dokumen ini valid dan terverifikasi secara digital.`);
                         .label { font-weight: bold; color: #495057; }
                         .value { color: #2c7be5; }
                         .amount { color: #28a745; font-weight: bold; font-size: 1.1em; }
+                        .attachments {
+                            margin: 20px 0;
+                            padding: 15px;
+                            background: #e9ecef;
+                            border-radius: 8px;
+                        }
                         .signature-area {
                             margin-top: 60px;
                             text-align: center;
@@ -1693,11 +2571,36 @@ Dokumen ini valid dan terverifikasi secara digital.`);
                             <span class="label">Keterangan:</span>
                             <span class="value">${latestDoc.description || '-'}</span>
                         </div>
+                        <div class="info-row">
+                            <span class="label">Status:</span>
+                            <span class="value" style="color: ${
+                                latestDoc.status === 'approved' ? '#28a745' : 
+                                latestDoc.status === 'rejected' ? '#dc3545' : '#ffc107'
+                            };">
+                                ${latestDoc.status === 'approved' ? 'DISETUJUI' : 
+                                  latestDoc.status === 'rejected' ? 'DITOLAK' : 'MENUNGGU'}
+                            </span>
+                        </div>
                     </div>
+                    
+                    ${latestDoc.files && latestDoc.files.length > 0 ? `
+                    <div class="attachments">
+                        <h4>Lampiran (${latestDoc.files.length} file):</h4>
+                        <ul>
+                            ${latestDoc.files.map(f => `<li>${f.name}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
                     
                     <div class="signature-area">
                         <div class="signature-line"></div>
                         <p>Tanda Tangan Penerima</p>
+                        ${latestDoc.approvedBy ? `
+                        <p style="margin-top: 20px;">
+                            <strong>Disetujui oleh:</strong> ${latestDoc.approvedBy}<br>
+                            <strong>Tanggal:</strong> ${new Date(latestDoc.approvedAt).toLocaleDateString('id-ID')}
+                        </p>
+                        ` : ''}
                     </div>
                     
                     <div class="footer">
@@ -1720,11 +2623,299 @@ Dokumen ini valid dan terverifikasi secara digital.`);
             printWindow.document.close();
         }
 
+        function verifyDocument() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const docId = urlParams.get('verify');
+            
+            if (docId) {
+                const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+                const doc = documents.find(d => d.id === docId);
+                
+                if (doc) {
+                    const status = doc.status || 'pending';
+                    const statusText = {
+                        'pending': 'MENUNGGU',
+                        'approved': 'DISETUJUI',
+                        'rejected': 'DITOLAK'
+                    };
+                    
+                    alert(`🔍 VERIFIKASI DOKUMEN
+
+📄 Judul: ${doc.title}
+🔢 Nomor: ${doc.documentNumber}
+👤 Pengirim: ${doc.sender}
+👥 Penerima: ${doc.receiver}
+💰 Jumlah: ${doc.amount}
+📅 Tanggal: ${new Date(doc.date).toLocaleDateString('id-ID')}
+📊 Status: ${statusText[status]}
+${doc.files && doc.files.length > 0 ? `📎 Lampiran: ${doc.files.length} file` : ''}
+
+${doc.status === 'rejected' ? `❌ Alasan: ${doc.rejectionReason}` : ''}
+${doc.approvedAt ? `✅ Disetujui pada: ${new Date(doc.approvedAt).toLocaleDateString('id-ID')}` : ''}
+${doc.approvedBy ? `👤 Oleh: ${doc.approvedBy}` : ''}
+
+Dokumen ini valid dan terverifikasi secara digital.`);
+                } else {
+                    showAlert('❌ Dokumen tidak ditemukan!', 'error');
+                }
+            } else {
+                const input = prompt('Masukkan ID Dokumen untuk verifikasi:');
+                if (input) {
+                    window.location.search = `?verify=${input}`;
+                }
+            }
+        }
+
+        // ==================== VIEW FUNCTIONS ====================
+        function viewDocumentDetail(docId) {
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            const doc = documents.find(d => d.id === docId);
+            
+            if (!doc) {
+                showAlert('Dokumen tidak ditemukan!', 'error');
+                return;
+            }
+            
+            document.getElementById('modalTitle').textContent = doc.title;
+            
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <p><strong>Nomor:</strong> ${doc.documentNumber}</p>
+                    <p><strong>Pengirim:</strong> ${doc.sender}</p>
+                    <p><strong>Penerima:</strong> ${doc.receiver}</p>
+                    <p><strong>Jumlah:</strong> ${doc.amount}</p>
+                    <p><strong>Tanggal:</strong> ${new Date(doc.date).toLocaleDateString('id-ID')}</p>
+                    <p><strong>Status:</strong> 
+                        <span style="color: ${doc.status === 'approved' ? '#28a745' : 
+                                        doc.status === 'rejected' ? '#dc3545' : '#ffc107'};
+                              font-weight: bold;">
+                            ${doc.status === 'approved' ? 'DISETUJUI' : 
+                              doc.status === 'rejected' ? 'DITOLAK' : 'MENUNGGU'}
+                        </span>
+                    </p>
+                    ${doc.approvedBy ? `<p><strong>Disetujui oleh:</strong> ${doc.approvedBy}</p>` : ''}
+                    ${doc.rejectedBy ? `<p><strong>Ditolak oleh:</strong> ${doc.rejectedBy}</p>` : ''}
+                    ${doc.rejectionReason ? `<p><strong>Alasan penolakan:</strong> ${doc.rejectionReason}</p>` : ''}
+                </div>
+                
+                ${doc.files && doc.files.length > 0 ? `
+                <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <h4><i class="fas fa-paperclip"></i> Lampiran (${doc.files.length})</h4>
+                    <div style="margin-top: 10px;">
+                        ${doc.files.map(file => {
+                            const fileIcon = getFileIcon(file.type);
+                            return `
+                                <div style="display: flex; align-items: center; gap: 10px; padding: 8px; background: white; border-radius: 6px; margin-bottom: 5px;">
+                                    <div style="color: #666;">
+                                        <i class="${fileIcon.icon}"></i>
+                                    </div>
+                                    <div style="flex: 1; font-size: 0.9rem;">${file.name}</div>
+                                    <button onclick="downloadFile('${file.name}', '${file.data}')" 
+                                            style="background: var(--primary); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+                ` : ''}
+                
+                ${doc.history && doc.history.length > 0 ? `
+                <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <h4><i class="fas fa-history"></i> Riwayat</h4>
+                    <div style="margin-top: 10px; max-height: 200px; overflow-y: auto;">
+                        ${doc.history.map(h => `
+                            <div style="padding: 8px; border-bottom: 1px solid #ddd; font-size: 0.9rem;">
+                                <div style="color: #666;">${new Date(h.timestamp).toLocaleString('id-ID')}</div>
+                                <div>${h.note || h.action}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+                
+                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;">
+                    <button onclick="closeModal()" class="btn btn-secondary">Tutup</button>
+                    <button onclick="loadDocumentIntoForm('${doc.id}')" class="btn btn-primary">Edit</button>
+                </div>
+            `;
+            
+            document.getElementById('documentModal').style.display = 'flex';
+        }
+
+        function loadDocumentIntoForm(docId) {
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            const doc = documents.find(d => d.id === docId);
+            
+            if (doc) {
+                // Fill form with document data
+                document.getElementById('documentTitle').value = doc.title;
+                document.getElementById('documentNumber').value = doc.documentNumber;
+                document.getElementById('senderName').value = doc.sender;
+                document.getElementById('receiverName').value = doc.receiver;
+                document.getElementById('receiverEmail').value = doc.receiverEmail || '';
+                document.getElementById('documentDate').value = doc.date;
+                document.getElementById('amount').value = doc.amount;
+                document.getElementById('description').value = doc.description || '';
+                
+                // Load files
+                uploadedFiles = doc.files ? [...doc.files] : [];
+                updateFileList();
+                
+                // Update preview
+                updateReceiptPreview(doc);
+                
+                currentDocumentId = doc.id;
+                
+                closeModal();
+                showAlert('📄 Dokumen dimuat untuk edit!', 'success');
+                switchTab('create');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('documentModal').style.display = 'none';
+        }
+
+        // ==================== TAB FUNCTIONS ====================
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Deactivate all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            
+            // Activate selected tab button
+            document.querySelectorAll('.tab').forEach(tab => {
+                if (tab.textContent.toLowerCase().includes(tabName)) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Refresh data if needed
+            if (tabName === 'history') {
+                loadHistory();
+                filterDocuments('all');
+            } else if (tabName === 'files') {
+                loadFileManager();
+            }
+        }
+
+        function filterDocuments(filter) {
+            const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+            let filteredDocs = [];
+            
+            switch(filter) {
+                case 'all':
+                    filteredDocs = documents;
+                    break;
+                case 'pending':
+                    filteredDocs = documents.filter(d => !d.status || d.status === 'pending');
+                    break;
+                case 'approved':
+                    filteredDocs = documents.filter(d => d.status === 'approved');
+                    break;
+                case 'rejected':
+                    filteredDocs = documents.filter(d => d.status === 'rejected');
+                    break;
+                case 'with_files':
+                    filteredDocs = documents.filter(d => d.files && d.files.length > 0);
+                    break;
+                default:
+                    filteredDocs = documents;
+            }
+            
+            const container = document.getElementById('filteredDocuments');
+            
+            if (filteredDocs.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <p>Tidak ada dokumen ditemukan</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Sort by date (newest first)
+            filteredDocs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            
+            container.innerHTML = filteredDocs.map(doc => `
+                <div class="document-item" onclick="viewDocumentDetail('${doc.id}')">
+                    <div class="doc-icon">
+                        <i class="${doc.files && doc.files.length > 0 ? 'fas fa-paperclip' : 'fas fa-file-invoice-dollar'}"></i>
+                    </div>
+                    <div class="doc-info">
+                        <strong>${doc.title}</strong>
+                        <small>${doc.documentNumber} • ${new Date(doc.date).toLocaleDateString('id-ID')}</small>
+                        <small>${doc.sender} → ${doc.receiver}</small>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                        <div class="doc-status status-${doc.status || 'pending'}">
+                            ${doc.status === 'approved' ? 'DISETUJUI' : 
+                              doc.status === 'rejected' ? 'DITOLAK' : 'MENUNGGU'}
+                        </div>
+                        ${doc.files && doc.files.length > 0 ? 
+                          `<small style="color: #6c757d;"><i class="fas fa-paperclip"></i> ${doc.files.length}</small>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showAllDocuments() {
+            switchTab('history');
+            filterDocuments('all');
+        }
+
         // ==================== URL PARAMETER HANDLING ====================
         function checkUrlParameters() {
             const urlParams = new URLSearchParams(window.location.search);
             const verifyId = urlParams.get('verify');
+            const approveId = urlParams.get('approve');
             
+            // MODE PENERIMA (Approval)
+            if (approveId) {
+                const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
+                const doc = documents.find(d => d.id === approveId);
+                
+                if (doc) {
+                    // Auto-fill form with document data
+                    document.getElementById('documentTitle').value = doc.title;
+                    document.getElementById('documentNumber').value = doc.documentNumber;
+                    document.getElementById('senderName').value = doc.sender;
+                    document.getElementById('receiverName').value = doc.receiver;
+                    document.getElementById('receiverEmail').value = doc.receiverEmail || '';
+                    document.getElementById('documentDate').value = doc.date;
+                    document.getElementById('amount').value = doc.amount;
+                    document.getElementById('description').value = doc.description || '';
+                    
+                    // Load files
+                    uploadedFiles = doc.files ? [...doc.files] : [];
+                    updateFileList();
+                    
+                    // Update preview
+                    updateReceiptPreview(doc);
+                    
+                    currentDocumentId = doc.id;
+                    
+                    // Show receiver interface
+                    showReceiverApprovalInterface(doc);
+                    
+                    showAlert(`📄 Dokumen "${doc.title}" siap untuk disetujui/ditolak!`, 'success');
+                }
+                return;
+            }
+            
+            // MODE VERIFIKASI
             if (verifyId) {
                 const documents = JSON.parse(localStorage.getItem('teamTaxDocuments')) || [];
                 const doc = documents.find(d => d.id === verifyId);
@@ -1735,10 +2926,14 @@ Dokumen ini valid dan terverifikasi secara digital.`);
                     document.getElementById('documentNumber').value = doc.documentNumber;
                     document.getElementById('senderName').value = doc.sender;
                     document.getElementById('receiverName').value = doc.receiver;
-                    document.getElementById('receiverEmail').value = doc.receiverEmail;
+                    document.getElementById('receiverEmail').value = doc.receiverEmail || '';
                     document.getElementById('documentDate').value = doc.date;
                     document.getElementById('amount').value = doc.amount;
-                    document.getElementById('description').value = doc.description;
+                    document.getElementById('description').value = doc.description || '';
+                    
+                    // Load files
+                    uploadedFiles = doc.files ? [...doc.files] : [];
+                    updateFileList();
                     
                     // Update preview
                     updateReceiptPreview(doc);
@@ -1748,7 +2943,61 @@ Dokumen ini valid dan terverifikasi secara digital.`);
             }
         }
 
-        // ==================== UTILITY FUNCTIONS ====================
+        function showReceiverApprovalInterface(doc) {
+            // Sembunyikan form input (karena penerima hanya baca)
+            document.querySelector('.form-section').style.display = 'none';
+            document.getElementById('receiptPreview').style.display = 'block';
+            
+            // Tampilkan pesan khusus untuk penerima
+            const header = document.querySelector('.header');
+            header.innerHTML = `
+                <h1>
+                    <i class="fas fa-user-check"></i>
+                    Persetujuan Tanda Terima
+                </h1>
+                <p>Anda menerima tanda terima dari <strong>${doc.sender}</strong>. Silakan berikan persetujuan.</p>
+                <div class="github-badge" style="background: #28a745;">
+                    <i class="fas fa-envelope"></i>
+                    Mode Penerima
+                </div>
+            `;
+            
+            // Update tombol action
+            const actionButtons = document.querySelector('.action-buttons');
+            actionButtons.innerHTML = `
+                <button type="button" class="btn btn-success" id="approveBtn" style="flex: 1;">
+                    <i class="fas fa-check"></i> SETUJUI DOKUMEN
+                </button>
+                <button type="button" class="btn btn-danger" id="rejectBtn" style="flex: 1;">
+                    <i class="fas fa-times"></i> TOLAK DOKUMEN
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="location.reload()">
+                    <i class="fas fa-times"></i> TUTUP
+                </button>
+            `;
+            
+            // Re-add event listeners for new buttons
+            document.getElementById('approveBtn').addEventListener('click', approveDocument);
+            document.getElementById('rejectBtn').addEventListener('click', rejectDocument);
+            
+            // Update signature section untuk menunjukkan status
+            const signatureSection = document.getElementById('signatureSection');
+            signatureSection.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 5px solid #ffc107;">
+                        <i class="fas fa-clock" style="font-size: 3rem; color: #ffc107;"></i>
+                        <h3 style="color: #856404; margin: 15px 0 10px;">MENUNGGU PERSETUJUAN</h3>
+                        <p style="color: #666;">Dokumen ini menunggu persetujuan Anda</p>
+                        <p style="font-size: 0.9em; color: #999;">
+                            Pengirim: ${doc.sender}<br>
+                            Dikirim: ${new Date(doc.createdAt).toLocaleDateString('id-ID')}
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==================== ALERT FUNCTION ====================
         function showAlert(message, type = 'success') {
             // Remove existing alerts
             const existingAlerts = document.querySelectorAll('.alert');
@@ -1783,9 +3032,9 @@ Dokumen ini valid dan terverifikasi secara digital.`);
             }
             
             const csvContent = "data:text/csv;charset=utf-8," 
-                + "ID,Judul,Nomor,Pengirim,Penerima,Jumlah,Tanggal,Status\n"
+                + "ID,Judul,Nomor,Pengirim,Penerima,Jumlah,Tanggal,Status,Lampiran,DisetujuiOleh,DitolakOleh,AlasanPenolakan\n"
                 + documents.map(doc => 
-                    `"${doc.id}","${doc.title}","${doc.documentNumber}","${doc.sender}","${doc.receiver}","${doc.amount}","${doc.date}","${doc.status || 'pending'}"`
+                    `"${doc.id}","${doc.title}","${doc.documentNumber}","${doc.sender}","${doc.receiver}","${doc.amount}","${doc.date}","${doc.status || 'pending'}","${doc.files ? doc.files.length : 0}","${doc.approvedBy || ''}","${doc.rejectedBy || ''}","${doc.rejectionReason || ''}"`
                 ).join("\n");
             
             const encodedUri = encodeURI(csvContent);
@@ -1800,22 +3049,25 @@ Dokumen ini valid dan terverifikasi secara digital.`);
         };
 
         window.clearData = function() {
-            if (confirm('Apakah Anda yakin ingin menghapus semua data?')) {
+            if (confirm('Apakah Anda yakin ingin menghapus SEMUA data dan file?')) {
                 localStorage.removeItem('teamTaxDocuments');
+                localStorage.removeItem('receiptHistory');
+                uploadedFiles = [];
                 initApp();
                 showAlert('🗑️ Semua data telah dihapus!', 'warning');
             }
         };
 
-        // ==================== GITHUB PAGES BADGE ====================
+        // ==================== INITIAL LOG ====================
         console.log(`
         ==========================================
         🚀 TANDA TERIMA DIGITAL SYSTEM
         ==========================================
         📱 GitHub Pages Ready
-        🔗 URL: https://[username].github.io/tanda-terima-digital/
+        🔗 URL: https://dandidolor.github.io/laporan_kerja/
         💾 Storage: LocalStorage
         📊 Documents: ${JSON.parse(localStorage.getItem('teamTaxDocuments'))?.length || 0}
+        📎 Files: ${JSON.parse(localStorage.getItem('teamTaxDocuments'))?.reduce((total, doc) => total + (doc.files?.length || 0), 0) || 0}
         ==========================================
         `);
     </script>
